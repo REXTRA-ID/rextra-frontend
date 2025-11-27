@@ -4,7 +4,6 @@
 
 Template **Next.js** menggunakan **Bun.js** sebagai bundler dan **ShadCN** untuk komponen UI berbasis Tailwind CSS. Template ini memberikan kemudahan dalam membangun aplikasi web dengan performa tinggi dan antarmuka pengguna yang modern dan responsif.
 
-Dibuat oleh [Ararya](https://github.com/Araryarch).
 
 ## Fitur
 
