@@ -1,8 +1,6 @@
 'use client'
 
 import Typography from '@/components/Typography'
-import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
 import {
   motion,
   useScroll,
@@ -101,9 +99,7 @@ export default function Home() {
   const mousePosition = useMousePosition()
   const { width: windowWidth, height: windowHeight } = useWindowDimensions()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [cursorVariant, setCursorVariant] = useState<'default' | 'button'>(
-    'default',
-  )
+  const [cursorVariant] = useState<'default' | 'button'>('default')
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -132,8 +128,8 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [])
 
-  const enterButton = () => setCursorVariant('button')
-  const leaveButton = () => setCursorVariant('default')
+  // const enterButton = () => setCursorVariant('button')
+  // const leaveButton = () => setCursorVariant('default')
 
   const cursorVariants: Variants = {
     default: {
@@ -237,17 +233,6 @@ export default function Home() {
           />
 
           <div className="text-center space-y-8 max-w-5xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2, duration: 0.8 }}
-              className="inline-block px-6 py-2 bg-white/5 backdrop-blur-md rounded-full mb-4 border border-white/10"
-            >
-              <span className="text-sm font-medium text-white/80 flex items-center justify-center">
-                Creating award-winning digital experiences since 2025
-              </span>
-            </motion.div>
-
             <div className="overflow-hidden">
               <motion.div
                 initial={{ y: 100 }}
@@ -264,76 +249,10 @@ export default function Home() {
                   weight="bold"
                   className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
                 >
-                  <span className="inline-block">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-300 to-white">
-                      Crafting
-                    </span>
-                  </span>{' '}
-                  <span className="inline-block mt-2 md:mt-4">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-400 to-purple-400">
-                      Digital
-                    </span>
-                  </span>{' '}
-                  <span className="inline-block mt-2 md:mt-4">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-white">
-                      Masterpieces
-                    </span>
-                  </span>
+                  Rextra
                 </Typography>
               </motion.div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.8, duration: 0.8 }}
-            >
-              <Typography
-                variant="bt"
-                className="text-white/70 max-w-2xl mx-auto text-lg md:text-xl"
-              >
-                We blend cutting-edge technology with immersive design to create
-                experiences that captivate, inspire, and transform digital
-                landscapes.
-              </Typography>
-            </motion.div>
-
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3, duration: 0.8 }}
-            >
-              <motion.div
-                onMouseEnter={enterButton}
-                onMouseLeave={leaveButton}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  size="lg"
-                  className="rounded-full text-lg px-10 py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-none shadow-lg shadow-blue-700/20"
-                >
-                  <span>Start Your Journey</span>
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </motion.div>
-
-              <motion.div
-                onMouseEnter={enterButton}
-                onMouseLeave={leaveButton}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full text-lg px-10 py-6 bg-neutral-700 border-white/20 text-white hover:bg-white/10 backdrop-blur-md"
-                >
-                  View Our Work
-                </Button>
-              </motion.div>
-            </motion.div>
           </div>
 
           <motion.div
