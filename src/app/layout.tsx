@@ -4,10 +4,10 @@ import type { Metadata } from 'next'
 
 import Providers from '@/app/providers'
 import { BASE_METADATA } from '@/contents/metadata'
-import { Inter, ClashDisplay } from '@/lib/font'
 import { cn } from '@/lib/utils'
 
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Poppins } from '@/lib/font'
 
 export const metadata: Metadata = {
   ...BASE_METADATA,
@@ -27,7 +27,7 @@ export default function RootLayout({
           type="image/x-icon"
         />
       </head>
-      <body className={cn(Inter.variable, ClashDisplay.variable, 'dark')}>
+      <body className={cn(Poppins.variable, 'dark')}>
         <Providers>{children}</Providers>
         <GoogleAnalytics gaId="" />
       </body>

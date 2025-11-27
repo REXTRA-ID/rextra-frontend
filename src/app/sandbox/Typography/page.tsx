@@ -1,7 +1,7 @@
 import Typography from '@/components/Typography'
 import { cn } from '@/lib/utils'
 
-const fontVariants = ['Inter', 'ClashDisplay'] as const
+const fontVariants = ['Poppins'] as const
 const fontWeights = ['regular', 'medium', 'bold'] as const
 
 const typographyVariants = [
@@ -21,7 +21,7 @@ const typographyVariants = [
 export default function TypographyPage() {
   return (
     <section className="my-8 px-4 text-center">
-      <Typography font="ClashDisplay" variant="h1">
+      <Typography font="Poppins" variant="h1">
         Typography Component
       </Typography>
 
@@ -78,7 +78,7 @@ export default function TypographyPage() {
                       weight={fontWeight}
                       variant={typographyVariant}
                     >
-                      TEDxITS
+                      Rextra
                     </Typography>
                   </td>
                 </tr>

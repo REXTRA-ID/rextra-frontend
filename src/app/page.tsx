@@ -245,7 +245,7 @@ export default function Home() {
               >
                 <Typography
                   variant="h1"
-                  font="ClashDisplay"
+                  font="Poppins"
                   weight="bold"
                   className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
                 >

@@ -5,8 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-Inter: var(--font-Inter);
-  --font-ClashDisplay: var(--font-Clash-Display);
+  --font-Poppins: var(--font-Poppins);
 }
 
 :root {

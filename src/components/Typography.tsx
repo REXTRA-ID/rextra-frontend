@@ -15,7 +15,7 @@ export enum TypographyVariant {
   l2,
 }
 
-export type FontVariant = 'Inter' | 'ClashDisplay'
+export type FontVariant = 'Poppins'
 
 export type FontWeight =
   | 'thin'
@@ -44,7 +44,7 @@ export default function Typography<T extends React.ElementType>({
   children,
   weight = 'regular',
   className,
-  font = 'Inter',
+  font = 'Poppins',
   variant = 'bt',
   ...props
 }: TypographyProps<T> &
@@ -57,8 +57,7 @@ export default function Typography<T extends React.ElementType>({
         'text-black',
         // *=============== Font Type ==================
         {
-          Inter: 'font-Inter',
-          ClashDisplay: 'font-ClashDisplay',
+          Poppins: 'font-Poppins',
         }[font],
         {
           thin: 'font-thin',
