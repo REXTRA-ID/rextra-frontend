@@ -124,3 +124,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media (max-height: 870px) {
+  .vh-sm {
+    width: 150px !important;
+  }
+}
