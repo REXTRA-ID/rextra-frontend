@@ -6,6 +6,7 @@
 
 @theme {
   --font-Poppins: var(--font-Poppins);
+  --font-Montserrat: var(--font-Montserrat);
 }
 
 :root {

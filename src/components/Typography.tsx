@@ -15,7 +15,7 @@ export enum TypographyVariant {
   l2,
 }
 
-export type FontVariant = 'Poppins'
+export type FontVariant = 'Poppins' | 'Montserrat'
 
 export type FontWeight =
   | 'thin'
@@ -58,6 +58,7 @@ export default function Typography<T extends React.ElementType>({
         // *=============== Font Type ==================
         {
           Poppins: 'font-Poppins',
+          Montserrat: 'font-Montserrat',
         }[font],
         {
           thin: 'font-thin',
