@@ -2,8 +2,8 @@ import axios, { AxiosError } from 'axios'
 import { GetServerSidePropsContext } from 'next/types'
 import Cookies from 'universal-cookie'
 
-import { getToken } from '@/lib/cookies'
 import { UninterceptedApiError } from '@/types/api'
+import { getAccessToken } from './cookies'
 const context = <GetServerSidePropsContext>{}
 
 export const baseURL =
@@ -32,9 +32,9 @@ api.interceptors.request.use(function (config) {
         throw 'Api Context not found. You must call `setApiContext(context)` before calling api on server-side'
 
       const cookies = new Cookies(context.req?.headers.cookie)
-      token = cookies.get('@<name>/token')
+      token = cookies.get('@rextra/token')
     } else {
-      token = getToken()
+      token = getAccessToken()
     }
 
     config.headers.Authorization = token ? `Bearer ${token}` : ''
@@ -48,7 +48,6 @@ api.interceptors.response.use(
     return config
   },
   (error: AxiosError<UninterceptedApiError>) => {
-    // parse error
     if (error.response?.data.message) {
       return Promise.reject({
         ...error,
