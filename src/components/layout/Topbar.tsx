@@ -88,17 +88,10 @@ export default function Topbar() {
 
         {open && (
           <div
-            className="
-              absolute -right-3 mt-3
-    w-56
-    bg-white
-    rounded-xl
-    shadow-lg
-    border
-    z-50
-    overflow-hidden
-    origin-top-right
-            "
+            className={cn(
+              'absolute -right-3 mt-3 w-56 bg-white',
+              'rounded-xl shadow-lg border z-50 overflow-hidden origin-top-right',
+            )}
           >
             {/* Mobile Info */}
             <div className="md:hidden px-4 py-3 border-b">
