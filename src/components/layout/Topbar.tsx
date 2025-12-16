@@ -43,11 +43,12 @@ export default function Topbar() {
         >
           <div className="w-10 h-10 shrink-0">
             <NextImage
-              width={10}
-              height={10}
+              width={40}
+              height={40}
               alt="Gajah"
-              src="/images/dashboard/Gajah.jpg"
-              className="w-full h-full rounded-full object-cover"
+              src="/dashboard/Gajah.jpg"
+              className="w-full h-full"
+              imgClassName="rounded-full object-cover"
             />
           </div>
 

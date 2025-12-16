@@ -33,9 +33,9 @@ export default function StatsCard() {
 
       <div className="flex items-center min-[550px]:items-center">
         <NextImage
-          width={28}
-          height={28}
-          src="/images/dashboard/Mascot Wisuda.svg"
+          width={128}
+          height={128}
+          src="/dashboard/Mascot Wisuda.svg"
           className="
           w-28 sm:w-32
           shrink-0
