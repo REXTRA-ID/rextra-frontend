@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 import LoginForm from './components/LoginForm'
 
-export default function RexxtraLogin() {
+export default function RextraLogin() {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col lg:flex-row overflow-hidden relative">
       {/* Header Banner */}
