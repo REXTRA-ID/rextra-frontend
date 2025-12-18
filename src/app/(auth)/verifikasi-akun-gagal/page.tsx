@@ -23,29 +23,46 @@ const page = () => {
           Verifikasi Akun Gagal
         </Typography>
 
-        <span className="mt-2 mb-8 text-[14px] text-[#494848] max-w-md">
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-2 mb-8 text-center text-[#494848] text-[14px]"
+        >
           Verifikasi gagal karena tautannya sudah kedaluwarsa. Klik tombol di
           bawah untuk mendapatkan tautan baru (berlaku 24 jam).
-        </span>
+        </Typography>
 
         <Image
           src="/images/auth/auth-user-verifikasi-akun-gagal.png"
           alt="Reset Password Email Sent"
           width={996}
           height={964}
-          className="mx-auto mb-10 w-[249px] h-[241px] object-contain"
+          className="mx-auto w-[249px] h-[241px] object-contain my-auto"
         />
-        <div className="mb-5 flex flex-row items-center gap-2">
-          <Button className="w-full sm:w-3/4 mx-auto bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
-            <span className="text-white text-[16px]">Kirim Tautan Baru</span>
-          </Button>
-        </div>
-        <span className="mt-5 mb-8 text-[14px] text-[#494848] max-w-md">
+
+        <Button className="w-full sm:w-3/4 mx-auto mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
+          <Typography
+            variant="bt"
+            font="Poppins"
+            weight="semibold"
+            className="text-center  text-white text-[18px]"
+          >
+            Kirim Tautan Baru
+          </Typography>{' '}
+        </Button>
+
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-5 mb-5 text-center text-[#494848] text-[14px]"
+        >
           Belum menerima e-mail?{' '}
           <a className="underline text-semibold text-[#003499]" href="">
             Kirim Ulang
           </a>
-        </span>
+        </Typography>
       </div>
     </div>
   )

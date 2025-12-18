@@ -23,19 +23,24 @@ const ResetPassword = () => {
           Reset Sandi Terkirim
         </Typography>
 
-        <span className="text-[14px] text-[#494848] text-center mx-10 mb-20">
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-2 mb-8 text-center text-[#494848] text-[14px]"
+        >
           Kami telah mengirimkan tautan reset sandi ke rextra@gmail.com. Periksa
           kotak masuk/spam dan klik dalam 24 jam sebelum kadaluarsa.
-        </span>
+        </Typography>
 
         <Image
           src="/images/auth/reset-sandi-mascot.png"
           alt="Reset Password Email Sent"
           width={996}
           height={964}
-          className="mx-auto mb-20  object-contain w-[249px] h-[241px] aspect-auto"
+          className="mx-auto object-contain w-[249px] h-[241px] aspect-auto"
         />
-        <Button className="bg-[#0046CC] hover:bg-[#0046CC]/80 hover:cursor-pointer rounded-lg">
+        <Button className="w-full sm:w-3/4 mx-auto mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 hover:cursor-pointer rounded-lg">
           <Typography
             variant="bt"
             font="Poppins"

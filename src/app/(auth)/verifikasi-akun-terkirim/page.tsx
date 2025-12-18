@@ -23,23 +23,33 @@ const page = () => {
           Verifikasi Akun Gagal
         </Typography>
 
-        <span className="mt-2 mb-8 text-[14px] text-[#494848] max-w-md">
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-2 mb-8 text-center text-[#494848] text-[14px]"
+        >
           Email verifikasi telah dikirim ke rextra@gmail.com. Cek inbox atau
           spam dan klik tautannya dalam 24 jam.
-        </span>
+        </Typography>
 
         <Image
           src="/images/auth/auth-user-verifikasi-akun-sekarang.png"
           alt="Reset Password Email Sent"
           width={996}
           height={964}
-          className="mx-auto mb-10 w-[249px] h-[241px] object-contain"
+          className="mx-auto w-[249px] h-[241px] object-contain"
         />
-        <div className="mb-5 flex flex-row items-center gap-2">
-          <Button className="w-full sm:w-3/4 mx-auto bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
-            <span className="text-white text-[16px]">Kirim Ulang Email</span>
-          </Button>
-        </div>
+        <Button className="w-full sm:w-3/4 mx-auto mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
+          <Typography
+            variant="bt"
+            font="Poppins"
+            weight="semibold"
+            className="text-center  text-white text-[18px]"
+          >
+            Kirim Ulang Email
+          </Typography>
+        </Button>
       </div>
     </div>
   )

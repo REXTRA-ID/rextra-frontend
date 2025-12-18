@@ -27,38 +27,61 @@ const Page = () => {
         >
           Verifikasi Akun Sekarang
         </Typography>
-
-        <p className="mt-2 mb-8 text-[14px] text-[#494848]">
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-2 mb-8 text-center text-[#494848] text-[14px]"
+        >
           Terima kasih telah mendaftar! Cek email{' '}
           <span className="font-semibold">rextra@gmail.com</span> untuk
           verifikasi akun dalam 24 jam.
-        </p>
+        </Typography>
 
         <Image
           src="/images/auth/auth-user-verifikasi-akun-sekarang.png"
           alt="Verifikasi Akun"
           width={249}
           height={241}
-          className="mx-auto mb-8"
+          className="mx-auto my-auto object-contain"
         />
 
         {/* Buttons */}
         <div className="flex w-full flex-col gap-3 sm:flex-row">
           <Button className="w-full sm:flex-1 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
-            <span className="text-white text-[16px]">Buka Email</span>
+            <Typography
+              variant="bt"
+              font="Poppins"
+              weight="semibold"
+              className="text-center  text-white text-[18px]"
+            >
+              Buka Email
+            </Typography>
           </Button>
 
           <Button className="w-full sm:flex-1 bg-[#CCDDFF] hover:bg-[#CCDDFF]/80 rounded-lg py-6">
-            <span className="text-[#0046CC] text-[16px]">Ganti Email</span>
+            <Typography
+              variant="bt"
+              font="Poppins"
+              weight="semibold"
+              className="text-center  text-[#0046CC] text-[18px]"
+            >
+              Buka Email
+            </Typography>
           </Button>
         </div>
 
-        <p className="mt-6 text-[14px] text-[#494848]">
+        <Typography
+          variant="bt"
+          font="Montserrat"
+          weight="regular"
+          className="mt-5 mb-8 text-center text-[#494848] text-[14px]"
+        >
           Belum menerima e-mail?{' '}
           <a href="#" className="font-semibold text-[#003499] underline">
             Kirim Ulang
           </a>
-        </p>
+        </Typography>
       </div>
     </div>
   )
