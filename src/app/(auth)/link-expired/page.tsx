@@ -6,12 +6,13 @@ import React from 'react'
 
 const LinkExpiredPage = () => {
   return (
-    <div className="relative min-h-screen flex justify-center items-center">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white px-4 text-center">
       <div className="absolute inset-0 bg-[url('/images/auth/auth-admin-bg.png')] bg-cover bg-center brightness-60"></div>{' '}
       <div
-        className="relative z-10 mx-auto flex flex-col bg-white w-full 
-  max-w-[95%] sm:max-w-[420px] md:max-w-[480px]
-  h-fit rounded-[20px] py-10 px-20 sm:px-[55px] my-auto"
+        className="relative z-10 w-full max-w-[655px]
+          rounded-[20px] bg-white
+          px-6 sm:px-10 py-10
+          text-center"
       >
         <Typography
           variant="h4"

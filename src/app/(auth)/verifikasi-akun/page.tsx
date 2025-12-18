@@ -4,60 +4,64 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-white px-4 text-center">
-      <Typography
-        variant="h4"
-        font="Montserrat"
-        weight="bold"
-        className="text-[#212729] text-[24px] leading-tight"
+    <div className="relative flex min-h-screen w-full items-center justify-center px-4">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[url('/images/auth/auth-admin-bg.png')] bg-cover bg-center brightness-50" />
+
+      {/* Card */}
+      <div
+        className="
+          relative z-10 w-full max-w-[655px]
+          rounded-[20px] bg-white
+          px-6 sm:px-10 py-10
+          text-center
+        "
       >
-        Verifikasi Akun Sekarang
-      </Typography>
+        <Typography
+          variant="h4"
+          font="Montserrat"
+          weight="bold"
+          className="text-[#212729] text-[24px]"
+        >
+          Verifikasi Akun Sekarang
+        </Typography>
 
-      <span className="mt-2 mb-8 text-[14px] text-[#494848] max-w-md">
-        Terima kasih telah mendaftar! Cek email rextra@gmail.com untuk
-        verifikasi akun dalam 24 jam.
-      </span>
+        <p className="mt-2 mb-8 text-[14px] text-[#494848]">
+          Terima kasih telah mendaftar! Cek email{' '}
+          <span className="font-semibold">rextra@gmail.com</span> untuk
+          verifikasi akun dalam 24 jam.
+        </p>
 
-      <Image
-        src="/images/auth/auth-user-verifikasi-akun-sekarang.png"
-        alt="Reset Password Email Sent"
-        width={996}
-        height={964}
-        className="mb-10 w-[249px] h-[241px] object-contain"
-      />
-      <div className="flex flex-row items-center gap-2">
-        <Button className="bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg">
-          <Typography
-            variant="bt"
-            font="Poppins"
-            weight="regular"
-            className="text-white text-[18px] p-5"
-          >
-            Buka Email
-          </Typography>
-        </Button>
-        <Button className="bg-[#CCDDFF] hover:bg[#CCDDFF]/80 rounded-lg">
-          <Typography
-            variant="bt"
-            font="Poppins"
-            weight="regular"
-            className="text-[#0046CC] text-[18px] p-5"
-          >
-            Ganti Email
-          </Typography>
-        </Button>
+        <Image
+          src="/images/auth/auth-user-verifikasi-akun-sekarang.png"
+          alt="Verifikasi Akun"
+          width={249}
+          height={241}
+          className="mx-auto mb-8"
+        />
+
+        {/* Buttons */}
+        <div className="flex w-full flex-col gap-3 sm:flex-row">
+          <Button className="w-full sm:flex-1 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
+            <span className="text-white text-[16px]">Buka Email</span>
+          </Button>
+
+          <Button className="w-full sm:flex-1 bg-[#CCDDFF] hover:bg-[#CCDDFF]/80 rounded-lg py-6">
+            <span className="text-[#0046CC] text-[16px]">Ganti Email</span>
+          </Button>
+        </div>
+
+        <p className="mt-6 text-[14px] text-[#494848]">
+          Belum menerima e-mail?{' '}
+          <a href="#" className="font-semibold text-[#003499] underline">
+            Kirim Ulang
+          </a>
+        </p>
       </div>
-      <span className="mt-5 mb-8 text-[14px] text-[#494848] max-w-md">
-        Belum menerima e-mail?{' '}
-        <a className="underline text-semibold text-[#003499]" href="">
-          Kirim Ulang
-        </a>
-      </span>
     </div>
   )
 }
 
-export default page
+export default Page
