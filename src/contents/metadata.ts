@@ -5,20 +5,9 @@ const metadataItems = getMetadataItems()
 export const BASE_METADATA = {
   title: metadataItems.title,
   description: metadataItems.description,
-  creator: 'Your Team Name 2025 Web Team',
-  publisher: 'Your Team Name 2025 Web Team',
-  keywords: [
-    'Your Team Name',
-    'Your Team Name 2025',
-    'Your Team Name',
-    'Your Team Name',
-    'Your Team Name 2025 Web Team',
-    'Your Team Name ITS',
-    'Your Team Name',
-    'Your Team Name 2025 Web Team',
-    'Your University Name',
-    'Your University Name 2025',
-  ],
+  creator: 'Rextra 2026 Web Team',
+  publisher: 'Rextra 2026 Web Team',
+  keywords: ['Rextra', 'Rextra 2026', 'Rextra ITS'],
   robots: 'follow, index',
   generator: 'Next.js',
   alternates: {
