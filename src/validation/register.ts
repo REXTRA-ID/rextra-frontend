@@ -15,7 +15,13 @@ export const RegisterSchema = z
 
     confirmPassword: z.string(),
 
-    kode: z.string().optional(),
+    phone_number: z
+      .string()
+      .regex(/^08[1-9][0-9]{7,10}$/, {
+        message:
+          'Nomor telefon harus diawali dengan 08 dan memiliki panjang 10-13 karakter',
+      })
+      .optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Konfirmasi password tidak sama',

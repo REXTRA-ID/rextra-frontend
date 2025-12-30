@@ -112,10 +112,10 @@ export default function RegisterForm() {
               labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
             />
             <Input
-              label="Kode Akses REXTRA CLUB (Optional)"
-              id="kode"
-              type="kode"
-              placeholder="Masukkan Kode Akses (jika ada)"
+              label="Nomor Telepon"
+              id="phone_number"
+              type="number"
+              placeholder="Masukkan Nomor Telepon"
               className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
               labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
             />
@@ -164,9 +164,9 @@ export default function RegisterForm() {
           </Button>
 
           <Typography className="text-center text-sm text-gray-600 mt-6">
-            Belum punya akun?{' '}
-            <Link href="#" className="text-blue-600 hover:underline">
-              Daftar Disini
+            Sudah punya akun?{' '}
+            <Link href="/login" className="text-blue-600 hover:underline">
+              Masuk Disini
             </Link>
           </Typography>
         </form>
