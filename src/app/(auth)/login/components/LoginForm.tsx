@@ -122,7 +122,7 @@ export default function LoginForm() {
 
           <Typography className="text-center text-sm text-gray-600 mt-6">
             Belum punya akun?{' '}
-            <Link href="#" className="text-blue-600 hover:underline">
+            <Link href="/register" className="text-blue-600 hover:underline">
               Daftar Disini
             </Link>
           </Typography>
