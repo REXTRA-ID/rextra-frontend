@@ -14,11 +14,12 @@ export default function WelcomeCard() {
     >
       <div className="flex flex-col gap-4 min-w-0">
         <NextImage
-          width={14}
-          height={14}
+          width={56}
+          height={56}
           alt="Gajah"
-          src="/images/dashboard/Gajah.jpg"
-          className="w-14 h-14 rounded-full object-cover shrink-0"
+          src="/dashboard/Gajah.jpg"
+          className="w-14 h-14 shrink-0"
+          imgClassName="rounded-full object-cover"
         />
 
         <div className="min-w-0">

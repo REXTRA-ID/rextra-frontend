@@ -2,7 +2,6 @@
 
 import NextImage from '@/components/next-image'
 import Typography from '@/components/Typography'
-import { LoginSchema } from '@/validation/login'
 import Link from 'next/link'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,11 +9,12 @@ import { z } from 'zod'
 import Button from '@/components/Button'
 import Input from '@/components/form/Input'
 import { useRegisterMutation } from '../hook/useRegisterMutation'
+import { RegisterSchema } from '@/validation/register'
 
 export default function RegisterForm() {
-  const methods = useForm<z.infer<typeof LoginSchema>>({
+  const methods = useForm<z.infer<typeof RegisterSchema>>({
     mode: 'onBlur',
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(RegisterSchema),
   })
 
   const {
@@ -24,7 +24,7 @@ export default function RegisterForm() {
 
   const { mutate, isPending } = useRegisterMutation()
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
     mutate(data)
   }
 
@@ -45,51 +45,94 @@ export default function RegisterForm() {
             variant="h5"
             className="text-xl font-bold text-[#212729] leading-[1.4]"
           >
-            Selamat Datang Kembali!
+            Daftar Akun REXTRA
           </Typography>
           <Typography
             variant="bt"
             className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
           >
-            Hi Sobat Rexi👋Senang bertemu lagi! Yuk, jelajahi REXTRA dengan
-            masuk ke akunmu.
+            Yuk, buat akun untuk mulai persiapan dan wujudkan karier digital
+            impian bersama REXTRA!
           </Typography>
 
           <div className="flex flex-col gap-3">
             <Input
-              label="Email"
-              id="email"
-              type="email"
-              placeholder="Masukkan Email Kamu"
+              label="Nama Lengkap"
+              id="fullname"
+              placeholder="Masukkan Nama Lengkap Kamu"
               className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
               labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
             />
 
             <Input
-              label="Password"
+              label="Email"
+              id="email"
+              type="email"
+              placeholder="Masukkan Alamat Email Kamu"
+              validation={{
+                required: 'Email harus diisi',
+                pattern: {
+                  value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+                  message: 'Format email tidak valid',
+                },
+              }}
+              className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
+              labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
+            />
+            <Input
+              label="Kata Sandi"
               id="password"
               type="password"
-              placeholder="Masukkan Kata Sandi"
+              placeholder="Masukkan Kata Sandi Kamu"
+              validation={{
+                required: 'Kata sandi harus diisi',
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                  message:
+                    'Password minimal 8 karakter dan harus mengandung huruf besar, huruf kecil, dan angka',
+                },
+              }}
+              className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
+              labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
+            />
+            <Input
+              label="Konfirmasi Kata Sandi"
+              id="confirmPassword"
+              type="password"
+              placeholder="Konfirmasi Kata Sandi"
+              validation={{
+                required: 'Kata sandi harus diisi',
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                  message:
+                    'Password minimal 8 karakter dan harus mengandung huruf besar, huruf kecil, dan angka',
+                },
+              }}
+              className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
+              labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
+            />
+            <Input
+              label="Kode Akses REXTRA CLUB (Optional)"
+              id="kode"
+              type="kode"
+              placeholder="Masukkan Kode Akses (jika ada)"
               className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
               labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
             />
           </div>
 
-          <div className="flex justify-between items-center mt-4 mb-15">
-            <label className="flex items-center justify-center gap-2 text-sm cursor-pointer select-none">
+          <div className="flex justify-between items-center my-5">
+            <label className="flex items-center justify-center gap-4 cursor-pointer text-[16px] select-none">
               <Input
                 id="null"
                 type="checkbox"
-                className="h-4 w-4 translate-y-[1px]"
+                className="h-5 w-5 translate-y-[1px]"
               />
-              <Typography className="text-[#494848] text-xs font-medium">
-                Ingat saya di perangkat ini
+              <Typography className="text-[#494848] font-regular">
+                Dengan mendaftar, saya menyetujui syarat dan ketentuan yang
+                berlaku
               </Typography>
             </label>
-
-            <Typography className="text-xs text-[#3379FF] font-semibold hover:underline cursor-pointer">
-              Lupa Password?
-            </Typography>
           </div>
 
           <Button
