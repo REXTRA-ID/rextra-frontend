@@ -24,10 +24,21 @@ export const useRegisterMutation = () => {
       )
       return res.data
     },
-    onSuccess: () => {
-      toast.success('Registrasi berhasil, silakan login')
-      router.push('/login')
+
+    onSuccess: async (_data, variables) => {
+      try {
+        // 🔥 POST ke send-email setelah register sukses
+        await api.post('/api/v1/auth/send-email', {
+          email: variables.email,
+        })
+
+        toast.success('Registrasi berhasil, silakan cek email untuk verifikasi')
+        router.push('/verifikasi-akun')
+      } catch {
+        toast.error('Registrasi berhasil, tapi gagal mengirim email verifikasi')
+      }
     },
+
     onError: (error) => {
       const res = error.response?.data as UninterceptedApiError
       toast.error(

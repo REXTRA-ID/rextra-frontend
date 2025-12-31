@@ -114,7 +114,7 @@ export default function RegisterForm() {
             <Input
               label="Nomor Telepon"
               id="phone_number"
-              type="number"
+              type="text"
               placeholder="Masukkan Nomor Telepon"
               className="w-full h-[48px] text-black rounded-[10px] font-Poppins font-medium"
               labelTextClasname="max-md:text-[12px] text-[14px] leading-[18px] mb-2 font-Poppins font-medium"
