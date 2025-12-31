@@ -39,7 +39,6 @@ export default function Topbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // ⛔ JANGAN return sebelum hooks
   if (!user) {
     return <header className="h-16 md:h-20 bg-white shadow px-4 md:px-8" />
   }

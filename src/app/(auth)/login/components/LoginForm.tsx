@@ -98,7 +98,16 @@ export default function LoginForm() {
             isLoading={isPending}
             className="w-full bg-[#005DFF] px-4 py-3 rounded-[10px] font-semibold hover:bg-blue-700 transition"
           >
-            <Typography className="text-white text-lg">Masuk</Typography>
+            {isPending ? (
+              <div className="flex items-center gap-2">
+                <span className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <Typography className="text-white text-lg">
+                  Memproses
+                </Typography>
+              </div>
+            ) : (
+              <Typography className="text-white text-lg">Masuk</Typography>
+            )}
           </Button>
 
           <div className="flex items-center gap-4 my-6">
