@@ -10,6 +10,9 @@ import { z } from 'zod'
 import { useLoginMutation } from '../hook/useLoginMutation'
 import Button from '@/components/Button'
 import Input from '@/components/form/Input'
+import toast from 'react-hot-toast'
+import { useForgetPasswordMutation } from '../../reset-password/hook/useForgotPassword'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
   const methods = useForm<z.infer<typeof LoginSchema>>({
@@ -17,15 +20,36 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   })
 
+  const router = useRouter()
+
   const {
     handleSubmit,
     formState: { isValid },
+    getValues,
   } = methods
 
   const { mutate, isPending } = useLoginMutation()
 
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
     mutate(data)
+  }
+
+  const { mutate: forgetPassword, isPending: isForgetPending } =
+    useForgetPasswordMutation()
+
+  const handleForgetPassword = () => {
+    const email = getValues('email')
+
+    if (!email) {
+      toast.error('Silakan masukkan email terlebih dahulu')
+      return
+    }
+
+    forgetPassword(email, {
+      onSuccess: () => {
+        router.push('/reset-password')
+      },
+    })
   }
 
   return (
@@ -87,9 +111,16 @@ export default function LoginForm() {
               </Typography>
             </label>
 
-            <Typography className="text-xs text-[#3379FF] font-semibold hover:underline cursor-pointer">
-              Lupa Password?
-            </Typography>
+            <button
+              type="button"
+              onClick={handleForgetPassword}
+              disabled={isForgetPending}
+            >
+              <Typography className="text-xs text-[#3379FF] font-semibold hover:underline bg-transparent">
+                {/* {isForgetPending ? 'Mengirim...' : 'Lupa Password?'} */}
+                Lupa Password?
+              </Typography>
+            </button>
           </div>
 
           <Button
