@@ -1,7 +1,8 @@
 'use client'
+import Button from '@/components/Button'
 import Typography from '@/components/Typography'
-import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Page = () => {
@@ -47,27 +48,25 @@ const Page = () => {
         />
 
         {/* Buttons */}
-        <div className="flex w-full flex-col gap-3 sm:flex-row">
-          <Button className="w-full sm:flex-1 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
-            <Typography
-              variant="bt"
-              font="Poppins"
-              weight="semibold"
-              className="text-center  text-white text-[18px]"
+        <div className="flex w-full justify-center">
+          <Button
+            asChild
+            className="w-full sm:flex-1 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6"
+          >
+            <Link
+              href="https://mail.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Buka Email
-            </Typography>
-          </Button>
-
-          <Button className="w-full sm:flex-1 bg-[#CCDDFF] hover:bg-[#CCDDFF]/80 rounded-lg py-6">
-            <Typography
-              variant="bt"
-              font="Poppins"
-              weight="semibold"
-              className="text-center  text-[#0046CC] text-[18px]"
-            >
-              Buka Email
-            </Typography>
+              <Typography
+                variant="bt"
+                font="Poppins"
+                weight="semibold"
+                className="text-center text-white text-[18px]"
+              >
+                Buka Email
+              </Typography>
+            </Link>
           </Button>
         </div>
 
