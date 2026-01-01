@@ -13,6 +13,8 @@ import Input from '@/components/form/Input'
 import toast from 'react-hot-toast'
 import { useForgetPasswordMutation } from '../../reset-password/hook/useForgotPassword'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { useLoginWithGoogleMutation } from '../hook/useLoginMutationFirebase'
 
 export default function LoginForm() {
   const methods = useForm<z.infer<typeof LoginSchema>>({
@@ -29,6 +31,8 @@ export default function LoginForm() {
   } = methods
 
   const { mutate, isPending } = useLoginMutation()
+  const { mutate: loginWithGoogle, isPending: isFirebasePending } =
+    useLoginWithGoogleMutation()
 
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
     mutate(data)
@@ -53,31 +57,47 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-md lg:max-w-xl md:max-w-lg mx-auto">
-      <div className="pb-[72px] lg:pb-[48px] pt-6 lg:flex hidden">
+    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-xl md:max-w-2xl mx-auto relative">
+      <div className="pb-[72px] lg:pb-[40px] pt-6 lg:flex hidden">
         <NextImage
-          src="/auth/logo-rextra.svg"
+          src="/auth/logo-rextra.webp"
           alt="logo rextra"
-          width={137}
-          height={25}
+          width={176}
+          height={49}
           className="left-[72px]"
+        />
+        <NextImage
+          src="/auth/topstar-authlg.svg"
+          alt="Wave"
+          width={579}
+          height={556}
+          className={cn(
+            'absolute top-0',
+            'right-0 w-[579px] max-w-full pointer-events-none select-none hidden lg:block',
+          )}
         />
       </div>
       <FormProvider {...methods}>
         <form className="mt-6 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <Typography
-            variant="h5"
-            className="text-xl font-bold text-[#212729] leading-[1.4]"
-          >
-            Selamat Datang Kembali!
-          </Typography>
-          <Typography
-            variant="bt"
-            className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
-          >
-            Hi Sobat Rexi👋Senang bertemu lagi! Yuk, jelajahi REXTRA dengan
-            masuk ke akunmu.
-          </Typography>
+          <div className="flex flex-col lg:gap-2 md:gap-3 gap-3">
+            <div>
+              <Typography
+                variant="h5"
+                className="text-[32px] md:text-xl font-bold text-[#212729] leading-[1.4]"
+              >
+                Selamat Datang Kembali!
+              </Typography>
+            </div>
+            <div>
+              <Typography
+                variant="bt"
+                className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
+              >
+                Hi Sobat Rexi👋Senang bertemu lagi! Yuk, jelajahi REXTRA dengan
+                masuk ke akunmu.
+              </Typography>
+            </div>
+          </div>
 
           <div className="flex flex-col gap-3">
             <Input
@@ -149,7 +169,12 @@ export default function LoginForm() {
             <div className="flex-1 h-px bg-[#8A8C90]"></div>
           </div>
 
-          <Button className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition">
+          <Button
+            onClick={() => loginWithGoogle()}
+            disabled={isFirebasePending}
+            isLoading={isFirebasePending}
+            className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+          >
             <NextImage
               width={25}
               height={25}
@@ -157,7 +182,18 @@ export default function LoginForm() {
               alt="Google"
               className="mr-2"
             />
-            <Typography className="font-normal text-lg">Google</Typography>
+            {isFirebasePending ? (
+              <div className="flex items-center gap-2">
+                <span className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <Typography className="text-white text-lg">
+                  Memproses
+                </Typography>
+              </div>
+            ) : (
+              <Typography className="text-white text-lg text-black">
+                Google
+              </Typography>
+            )}
           </Button>
 
           <Typography className="text-center text-sm text-gray-600 mt-6">
