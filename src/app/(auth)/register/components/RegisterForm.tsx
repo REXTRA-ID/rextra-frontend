@@ -10,6 +10,7 @@ import Button from '@/components/Button'
 import Input from '@/components/form/Input'
 import { useRegisterMutation } from '../hook/useRegisterMutation'
 import { RegisterSchema } from '@/validation/register'
+import { cn } from '@/lib/utils'
 
 export default function RegisterForm() {
   const methods = useForm<z.infer<typeof RegisterSchema>>({
@@ -29,8 +30,8 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-md lg:max-w-xl md:max-w-lg mx-auto">
-      <div className="pb-[72px] lg:pb-[48px] pt-6 lg:flex hidden">
+    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-xl md:max-w-2xl mx-auto relative">
+      <div className="pb-[72px] lg:pb-[40px] pt-6 lg:flex hidden">
         <NextImage
           src="/auth/logo-rextra.svg"
           alt="logo rextra"
@@ -38,22 +39,38 @@ export default function RegisterForm() {
           height={25}
           className="left-[72px]"
         />
+        <NextImage
+          src="/auth/topstar-authlg.svg"
+          alt="Wave"
+          width={579}
+          height={556}
+          className={cn(
+            'absolute top-0',
+            'right-0 w-[579px] max-w-full pointer-events-none select-none hidden lg:block',
+          )}
+        />
       </div>
       <FormProvider {...methods}>
         <form className="mt-6 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <Typography
-            variant="h5"
-            className="text-xl font-bold text-[#212729] leading-[1.4]"
-          >
-            Daftar Akun REXTRA
-          </Typography>
-          <Typography
-            variant="bt"
-            className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
-          >
-            Yuk, buat akun untuk mulai persiapan dan wujudkan karier digital
-            impian bersama REXTRA!
-          </Typography>
+          <div className="flex flex-col lg:gap-2 md:gap-3 gap-3">
+            <div>
+              <Typography
+                variant="h5"
+                className="text-xl font-bold text-[#212729] leading-[1.4]"
+              >
+                Daftar Akun REXTRA
+              </Typography>
+            </div>
+            <div>
+              <Typography
+                variant="bt"
+                className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
+              >
+                Yuk, buat akun untuk mulai persiapan dan wujudkan karier digital
+                impian bersama REXTRA!
+              </Typography>
+            </div>
+          </div>
 
           <div className="flex flex-col gap-3">
             <Input
