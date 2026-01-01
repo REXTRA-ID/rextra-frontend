@@ -123,13 +123,23 @@ export default function RextraLogin() {
       />
 
       <NextImage
-        src="/auth/wave-rextra-lg.svg"
+        src="/auth/leftstar-authlg.svg"
         alt="Wave"
-        width={322}
-        height={179}
+        width={570}
+        height={551}
         className={cn(
           'absolute bottom-0',
-          'left-0 w-[322px] max-w-full pointer-events-none select-none hidden lg:flex',
+          'left-0 w-[570px] max-w-full pointer-events-none select-none hidden lg:flex',
+        )}
+      />
+      <NextImage
+        src="/auth/topstar-authlg.svg"
+        alt="Wave"
+        width={579}
+        height={556}
+        className={cn(
+          'absolute top-0',
+          'right-0 w-[579px] max-w-full pointer-events-none select-none hidden lg:flex',
         )}
       />
 
