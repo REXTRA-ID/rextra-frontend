@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { useForgetPasswordMutation } from '../../reset-password/hook/useForgotPassword'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useLoginWithGoogleMutation } from '../hook/useLoginMutationFirebase'
 
 export default function LoginForm() {
   const methods = useForm<z.infer<typeof LoginSchema>>({
@@ -30,6 +31,8 @@ export default function LoginForm() {
   } = methods
 
   const { mutate, isPending } = useLoginMutation()
+  const { mutate: loginWithGoogle, isPending: isFirebasePending } =
+    useLoginWithGoogleMutation()
 
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
     mutate(data)
@@ -166,7 +169,12 @@ export default function LoginForm() {
             <div className="flex-1 h-px bg-[#8A8C90]"></div>
           </div>
 
-          <Button className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition">
+          <Button
+            onClick={() => loginWithGoogle()}
+            disabled={isFirebasePending}
+            isLoading={isFirebasePending}
+            className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+          >
             <NextImage
               width={25}
               height={25}
@@ -174,7 +182,18 @@ export default function LoginForm() {
               alt="Google"
               className="mr-2"
             />
-            <Typography className="font-normal text-lg">Google</Typography>
+            {isFirebasePending ? (
+              <div className="flex items-center gap-2">
+                <span className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <Typography className="text-white text-lg">
+                  Memproses
+                </Typography>
+              </div>
+            ) : (
+              <Typography className="text-white text-lg text-black">
+                Google
+              </Typography>
+            )}
           </Button>
 
           <Typography className="text-center text-sm text-gray-600 mt-6">
