@@ -53,7 +53,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-md lg:max-w-xl md:max-w-lg mx-auto">
+    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-xl md:max-w-2xl mx-auto">
       <div className="pb-[72px] lg:pb-[48px] pt-6 lg:flex hidden">
         <NextImage
           src="/auth/logo-rextra.svg"
@@ -65,19 +65,25 @@ export default function LoginForm() {
       </div>
       <FormProvider {...methods}>
         <form className="mt-6 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <Typography
-            variant="h5"
-            className="text-xl font-bold text-[#212729] leading-[1.4]"
-          >
-            Selamat Datang Kembali!
-          </Typography>
-          <Typography
-            variant="bt"
-            className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
-          >
-            Hi Sobat Rexi👋Senang bertemu lagi! Yuk, jelajahi REXTRA dengan
-            masuk ke akunmu.
-          </Typography>
+          <div className="flex flex-col lg:gap-2 md:gap-3 gap-3">
+            <div>
+              <Typography
+                variant="h5"
+                className="text-[32px] md:text-xl font-bold text-[#212729] leading-[1.4]"
+              >
+                Selamat Datang Kembali!
+              </Typography>
+            </div>
+            <div>
+              <Typography
+                variant="bt"
+                className="text-justify text-sm font-normal text-[#494848] mb-[26px] leading-[1.55]"
+              >
+                Hi Sobat Rexi👋Senang bertemu lagi! Yuk, jelajahi REXTRA dengan
+                masuk ke akunmu.
+              </Typography>
+            </div>
+          </div>
 
           <div className="flex flex-col gap-3">
             <Input

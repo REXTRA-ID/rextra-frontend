@@ -7,7 +7,7 @@ export default function RextraLogin() {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col lg:flex-row overflow-hidden relative">
       {/* Header Banner */}
-      <div className="w-full lg:w-1/2 bg-[#005DFF] text-white p-6 flex flex-col items-center text-center relative overflow-hidden lg:order-2">
+      <div className="w-full lg:w-1/2 bg-transparent lg:bg-[#005DFF] text-white p-6 flex flex-col items-center text-center relative overflow-hidden lg:order-2">
         {/* <h1 className="text-2xl font-bold leading-tight text-[#005DFF] lg:hidden flex">
           UNLOCK <br /> YOUR DIGITAL <br /> CAREER PATH <br /> WITH{' '}
           <span className="bg-transparent text-[#005DFF] px-2 py-1 rounded-md lg:hidden flex">
@@ -101,13 +101,24 @@ export default function RextraLogin() {
       </div>
 
       <NextImage
-        src="/auth/wave-rextra.svg"
+        src="/auth/rightstar-auth.svg"
         alt="Wave"
-        width={250}
-        height={120}
+        width={674}
+        height={667}
         className={cn(
-          'absolute bottom-0 vh-sm',
-          'left-0 w-[200px] sm:w-[250px] max-w-full pointer-events-none select-none lg:hidden flex',
+          'absolute bottom-0',
+          'right-0 w-[674px] max-w-sm sm:max-w-md pointer-events-none select-none lg:hidden flex',
+        )}
+      />
+
+      <NextImage
+        src="/auth/topstar-auth.svg"
+        alt="Wave"
+        width={579}
+        height={559}
+        className={cn(
+          'absolute top-0',
+          'left-0 w-[579px] max-w-sm sm:max-w-md pointer-events-none select-none lg:hidden flex',
         )}
       />
 
