@@ -33,7 +33,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-xl md:max-w-2xl mx-auto relative">
+    <div className="w-full lg:pl-20 lg:pr-28 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-full md:max-w-2xl mx-auto relative">
       <div className="pb-[72px] lg:pb-[40px] pt-6 lg:flex hidden">
         <NextImage
           src="/auth/logo-rextra.webp"
@@ -59,7 +59,7 @@ export default function LoginForm() {
             <div>
               <Typography
                 variant="h5"
-                className="text-[32px] md:text-xl font-bold text-[#212729] leading-[1.4]"
+                className="text-[32px] md:text-[32px] font-bold text-[#212729] leading-[1.4]"
               >
                 Selamat Datang Kembali!
               </Typography>

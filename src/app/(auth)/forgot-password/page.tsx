@@ -3,18 +3,11 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 import ForgotForm from './components/ForgotForm'
 
-export default function RextraRegister() {
+export default function RextraForgotPassword() {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col lg:flex-row overflow-hidden relative">
       {/* Header Banner */}
       <div className="w-full lg:w-1/2 bg-transparent lg:bg-[#005DFF] text-white p-6 flex flex-col items-center text-center relative overflow-hidden lg:order-2">
-        {/* <h1 className="text-2xl font-bold leading-tight text-[#005DFF] lg:hidden flex">
-          UNLOCK <br /> YOUR DIGITAL <br /> CAREER PATH <br /> WITH{' '}
-          <span className="bg-transparent text-[#005DFF] px-2 py-1 rounded-md lg:hidden flex">
-            REXTRA
-          </span>
-        </h1> */}
-
         <NextImage
           src="/auth/butterfly.png"
           alt="Butterfly"
