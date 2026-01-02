@@ -46,7 +46,7 @@ export default function ChangePasswordForm() {
   // }
 
   return (
-    <div className="w-full lg:pl-6 lg:pr-10 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-xl md:max-w-2xl mx-auto relative">
+    <div className="w-full lg:pl-16 lg:pr-20 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-full md:max-w-2xl mx-auto relative">
       <div className="pb-[72px] lg:pb-[40px] pt-6 lg:flex hidden">
         <NextImage
           src="/auth/logo-rextra.webp"
