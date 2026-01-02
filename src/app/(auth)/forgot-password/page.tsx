@@ -8,7 +8,6 @@ export default function RextraForgotPassword() {
     <div className="min-h-screen w-full bg-white flex flex-col lg:flex-row overflow-hidden relative">
       {/* Header Banner */}
       <div className="w-full lg:w-1/2 bg-transparent lg:bg-[#005DFF] text-white p-6 flex flex-col items-center text-center relative overflow-hidden lg:order-2">
-
         <NextImage
           src="/auth/butterfly.png"
           alt="Butterfly"
