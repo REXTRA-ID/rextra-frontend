@@ -56,7 +56,7 @@ export default function RegisterForm() {
             <div>
               <Typography
                 variant="h5"
-                className="text-xl font-bold text-[#212729] leading-[1.4]"
+                className="text-[32px] md:text-xl font-bold text-[#212729] leading-[1.4]"
               >
                 Daftar Akun REXTRA
               </Typography>

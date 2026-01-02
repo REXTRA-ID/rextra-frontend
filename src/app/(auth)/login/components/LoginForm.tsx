@@ -10,9 +10,6 @@ import { z } from 'zod'
 import { useLoginMutation } from '../hook/useLoginMutation'
 import Button from '@/components/Button'
 import Input from '@/components/form/Input'
-import toast from 'react-hot-toast'
-import { useForgetPasswordMutation } from '../../reset-password/hook/useForgotPassword'
-import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useLoginWithGoogleMutation } from '../hook/useLoginMutationFirebase'
 
@@ -22,12 +19,9 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   })
 
-  const router = useRouter()
-
   const {
     handleSubmit,
     formState: { isValid },
-    getValues,
   } = methods
 
   const { mutate, isPending } = useLoginMutation()
@@ -36,24 +30,6 @@ export default function LoginForm() {
 
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
     mutate(data)
-  }
-
-  const { mutate: forgetPassword, isPending: isForgetPending } =
-    useForgetPasswordMutation()
-
-  const handleForgetPassword = () => {
-    const email = getValues('email')
-
-    if (!email) {
-      toast.error('Silakan masukkan email terlebih dahulu')
-      return
-    }
-
-    forgetPassword(email, {
-      onSuccess: () => {
-        router.push('/reset-password')
-      },
-    })
   }
 
   return (
@@ -131,16 +107,12 @@ export default function LoginForm() {
               </Typography>
             </label>
 
-            <button
-              type="button"
-              onClick={handleForgetPassword}
-              disabled={isForgetPending}
-            >
+            <Link href="/forgot-password">
               <Typography className="text-xs text-[#3379FF] font-semibold hover:underline bg-transparent">
                 {/* {isForgetPending ? 'Mengirim...' : 'Lupa Password?'} */}
                 Lupa Password?
               </Typography>
-            </button>
+            </Link>
           </div>
 
           <Button
