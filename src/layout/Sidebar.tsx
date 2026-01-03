@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation' // Hook wajib untuk Next.js Active State
+import { usePathname } from 'next/navigation'
 import {
   User,
   BarChart2,
@@ -15,15 +15,10 @@ import {
   ChevronDown,
   ChevronLeft,
 } from 'lucide-react'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 import Link from 'next/link'
+import NextImage from '@/components/next-image'
+import { cn } from '@/lib/utils'
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
-// --- Data Menu (HREF harus unik agar active state bekerja) ---
 const menuData = [
   {
     category: 'Mahasiswa',
@@ -33,26 +28,32 @@ const menuData = [
         icon: User,
         href: '/dashboard/mahasiswa/akun',
       },
-      { label: 'Persona Rextra', icon: BarChart2, href: '/mahasiswa/persona' },
+      {
+        label: 'Persona Rextra',
+        icon: BarChart2,
+        href: '/dashboard/mahasiswa/persona',
+      },
       {
         label: 'Pendidikan',
         icon: GraduationCap,
-        href: '/mahasiswa/pendidikan',
+        href: '/dashboard/mahasiswa/pendidikan',
       },
       {
         label: 'Rextra Club',
         icon: Users,
-        href: '#', // Parent tanpa link langsung
-        children: [{ label: 'Member List', href: '/rextra-club/members' }],
+        href: '#',
+        children: [
+          { label: 'Member List', href: '/dashboard/rextra-club/members' },
+        ],
       },
       {
         label: 'Kenali Diri',
         icon: Heart,
-        href: '#', // Parent dropdown biasanya '#' atau path base
+        href: '#',
         children: [
-          { label: 'Master Data', href: '/kenali-diri/master' },
-          { label: 'Hasil Tes', href: '/kenali-diri/hasil' },
-          { label: 'Umpan Balik', href: '/kenali-diri/feedback' },
+          { label: 'Master Data', href: '/dashboard/kenali-diri/master-data' },
+          { label: 'Hasil Tes', href: '/dashboard/kenali-diri/hasil-tes' },
+          { label: 'Umpan Balik', href: '/dashboard/kenali-diri/umpan-balik' },
         ],
       },
     ],
@@ -63,28 +64,32 @@ const menuData = [
       {
         label: 'Profil Perusahaan',
         icon: Building2,
-        href: '/perusahaan/profil',
+        href: '/dashboard/perusahaan/profil',
       },
       {
         label: 'Lowongan Pekerjaan',
         icon: FileText,
-        href: '/perusahaan/loker',
+        href: '/dashboard/perusahaan/loker',
       },
     ],
   },
   {
     category: 'Performa',
     items: [
-      { label: 'Capaian Pengguna', icon: Trophy, href: '/performa/pengguna' },
+      {
+        label: 'Capaian Pengguna',
+        icon: Trophy,
+        href: '/dashboard/performa/pengguna',
+      },
       {
         label: 'Capaian Keuangan',
         icon: DollarSign,
-        href: '/performa/keuangan',
+        href: '/dashboard/performa/keuangan',
       },
       {
         label: 'Visualisasi Performa',
         icon: BarChart2,
-        href: '/performa/visualisasi',
+        href: '/dashboard/performa/visualisasi',
       },
     ],
   },
@@ -94,7 +99,6 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
   const [expandedMenus, setExpandedMenus] = useState<string[]>([])
 
-  // 1. Ambil Path URL saat ini
   const pathname = usePathname()
 
   const toggleSidebar = () => setIsOpen(!isOpen)
@@ -108,7 +112,7 @@ export default function Sidebar() {
             ? prev.filter((item) => item !== label)
             : [...prev, label],
         )
-      }, 150) // Delay sedikit agar transisi sidebar selesai
+      }, 150)
       return
     }
     setExpandedMenus((prev) =>
@@ -142,24 +146,43 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'h-screen bg-white border-r border-gray-100 flex flex-col transition-all duration-300 ease-in-out relative z-20',
+        // --- Tambahkan Shadow Disini ---
+        // Format: shadow-[offset-x_offset-y_blur_spread_color]
+        'shadow-[3px_9px_7px_7px_rgba(77,77,86,0.04)]',
+
+        'bg-white border-r border-[#B5B7B8] flex flex-col transition-all duration-300 ease-in-out relative z-20',
         isOpen ? 'w-[318px]' : 'w-[139px]',
       )}
     >
       {/* HEADER */}
-      <div className="h-20 flex items-center justify-between px-6 mb-4 mt-2">
-        <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap">
-          <div className="w-10 h-10 bg-blue-500 rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xl">
-            R
-          </div>
-          <span
-            className={cn(
-              'font-extrabold text-2xl text-blue-900 transition-opacity duration-200',
-              isOpen ? 'opacity-100' : 'opacity-0 hidden',
-            )}
-          >
-            REXTRA
-          </span>
+      <div
+        className={cn(
+          'h-20 flex items-center mb-2 transition-all duration-300 border-b border-[#B5B7B8]',
+          isOpen ? 'justify-between px-6' : 'justify-center px-0',
+        )}
+      >
+        <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0">
+          {isOpen ? (
+            // --- KONDISI 1: Sidebar Terbuka (Full Logo) ---
+            <NextImage
+              src="/dashboard/logo-rextra.webp"
+              alt="Rextra Full Logo"
+              width={150}
+              height={35}
+              className="object-contain transition-opacity duration-300"
+              priority
+            />
+          ) : (
+            // --- KONDISI 2: Sidebar Tertutup (Icon Only) ---
+            <NextImage
+              src="/dashboard/logo-mini.svg"
+              alt="Rextra Icon"
+              width={37}
+              height={44}
+              className="object-contain transition-opacity duration-300"
+              priority
+            />
+          )}
         </div>
         {isOpen && (
           <button
@@ -184,7 +207,7 @@ export default function Sidebar() {
               {section.category}
             </h3>
 
-            <div className="space-y-2">
+            <div className="gap-1">
               {section.items.map((item) => {
                 const hasChildren = item.children && item.children.length > 0
                 const isMenuExpanded = expandedMenus.includes(item.label)
@@ -235,7 +258,7 @@ export default function Sidebar() {
                           />
                           <span
                             className={cn(
-                              'whitespace-nowrap transition-all duration-200',
+                              'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
                               isOpen
                                 ? 'opacity-100'
                                 : 'opacity-0 w-0 h-0 hidden',
@@ -285,7 +308,7 @@ export default function Sidebar() {
                           />
                           <span
                             className={cn(
-                              'whitespace-nowrap transition-all duration-200',
+                              'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
                               isOpen
                                 ? 'opacity-100'
                                 : 'opacity-0 w-0 h-0 hidden',
@@ -307,24 +330,31 @@ export default function Sidebar() {
                             : 'grid-rows-[0fr] opacity-0 mt-0',
                         )}
                       >
-                        <div className="min-h-0 pl-[2.85rem] relative">
-                          <div className="absolute left-[1.9rem] top-0 bottom-4 w-px bg-gray-200"></div>
+                        <div className="min-h-0 relative">
+                          {/* 1. GARIS VERTIKAL (Tree Line) */}
+                          {/* Kita set posisi absolute 'left-9' (2.25rem). z-0 agar di layer paling bawah */}
+                          <div className="absolute left-[35.5px] top-0 bottom-4 w-px bg-gray-200 z-0"></div>
+
                           {item.children?.map((subItem, subIdx) => {
-                            const isSubActive = pathname === subItem.href // Cek URL Sub Menu
+                            const isSubActive = pathname === subItem.href
 
                             return (
                               <Link
                                 key={subIdx}
                                 href={subItem.href}
-                                className="relative flex items-center py-2 pl-4 text-sm hover:text-blue-600 group/sub"
+                                // Tambahkan padding kiri (pl-16) yang cukup agar teks tidak menabrak garis
+                                className="relative flex items-center py-2 pl-16 text-sm hover:text-blue-600 group/sub w-full"
                               >
-                                {/* Dot Indicator */}
+                                {/* 2. DOT INDICATOR */}
                                 <div
                                   className={cn(
-                                    'absolute left-[-15px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 z-10 transition-colors',
+                                    // Posisi: 'left-9' (SAMA PERSIS dengan garis).
+                                    // Gunakan -translate-x-1/2 agar titik berada tepat di tengah garis (center-aligned).
+                                    // z-10: Agar titik muncul DI ATAS garis.
+                                    'absolute left-9 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 transition-all z-10',
                                     isSubActive
-                                      ? 'border-blue-600 bg-blue-600'
-                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400',
+                                      ? 'border-blue-600 bg-blue-600' // Aktif: Biru solid
+                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400', // Tidak Aktif: WAJIB bg-white agar garis di belakangnya tertutup
                                   )}
                                 />
 

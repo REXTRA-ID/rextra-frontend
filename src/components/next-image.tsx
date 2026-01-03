@@ -1,27 +1,32 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import Image, { ImageProps } from 'next/image'
+// 1. Tambahkan StaticImageData di import
+import Image, { ImageProps, StaticImageData } from 'next/image'
 import * as React from 'react'
 
-type NextImageProps = {
+type BaseProps = {
   useSkeleton?: boolean
   imgClassName?: string
   serverStaticImg?: boolean
   blurClassName?: string
   alt: string
-  width: string | number
-} & (
-  | { width: string | number; height: string | number }
-  | { layout: 'fill'; width?: string | number; height?: string | number }
-) &
-  ImageProps
+}
 
-/**
- *
- * @description Must set width using `w-` className
- * @param useSkeleton add background with pulse animation, don't use it if image is transparent
- */
+type NextImageProps = BaseProps &
+  (
+    | {
+        width: number | `${number}`
+        height: number | `${number}`
+        fill?: false
+      }
+    | { fill: true; width?: never; height?: never }
+  ) &
+  Omit<ImageProps, 'src' | 'alt' | 'width' | 'height' | 'fill'> & {
+    // 2. PERBAIKAN DISINI: Ganti 'any' dengan 'StaticImageData'
+    src: string | StaticImageData
+  }
+
 export default function NextImage({
   useSkeleton = false,
   serverStaticImg = false,
@@ -32,6 +37,7 @@ export default function NextImage({
   className,
   imgClassName,
   blurClassName,
+  fill,
   ...rest
 }: NextImageProps) {
   const [status, setStatus] = React.useState(
@@ -41,17 +47,21 @@ export default function NextImage({
 
   return (
     <figure
-      style={!widthIsSet ? { width: `${width}px` } : undefined}
-      className={className}
+      style={
+        !fill && !widthIsSet && width ? { width: `${width}px` } : undefined
+      }
+      className={cn(className, fill && 'relative h-full w-full')}
     >
       <Image
         className={cn(
           imgClassName,
-          status === 'loading' && cn('animate-pulse bg-red-50', blurClassName),
+          status === 'loading' &&
+            cn('animate-pulse bg-gray-200', blurClassName),
         )}
-        src={serverStaticImg ? src : '/images' + src}
-        width={width}
-        height={height}
+        src={serverStaticImg || typeof src !== 'string' ? src : '/images' + src}
+        width={width as ImageProps['width']}
+        height={height as ImageProps['height']}
+        fill={fill}
         alt={alt}
         onLoad={() => setStatus('complete')}
         {...rest}
