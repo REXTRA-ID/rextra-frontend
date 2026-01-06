@@ -4,23 +4,58 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
 
-const page = () => {
+const AccountVerificationPage = () => {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white px-4 text-center">
-      <div className="absolute inset-0 bg-[url('/images/auth/auth-admin-bg.png')] bg-cover bg-center brightness-60"></div>{' '}
+    // Changed min-h-screen to min-h-dvh for better mobile support
+    <div className="relative flex min-h-dvh w-full flex-col items-center justify-center bg-white px-4 text-center overflow-hidden">
+      {/* Background Layer */}
+      <div
+        className="absolute inset-0 z-0 
+    bg-[url('/images/auth/auth-admin-bg.png')] 
+    bg-cover 
+    bg-center 
+    bg-no-repeat 
+    bg-fixed
+    brightness-60
+    hidden
+    md:block"
+        aria-hidden="true"
+      />
+      <Image
+        src="/images/auth/bintang1.png"
+        width={290}
+        height={231}
+        alt="bintang1"
+        className="absolute inset-0 z-0 md:hidden block"
+      />
+      <Image
+        src="/images/auth/bintang2.png"
+        width={290}
+        height={231}
+        alt="bintang2"
+        className="
+    absolute md:hidden block z-10
+    bottom-0 right-0
+    w-[290px] h-auto
+    translate-x-1/4 translate-y-1/4
+    pointer-events-none
+  "
+      />
+
+      {/* Content Card */}
       <div
         className="relative z-10 w-full max-w-[655px]
           rounded-[20px] bg-white
           px-6 sm:px-10 py-10
-          text-center"
+          text-center shadow-xl"
       >
         <Typography
           variant="h4"
           font="Montserrat"
           weight="bold"
-          className="text-[#212729] text-[24px] leading-tight"
+          className="text-center text-[#212729] text-[24px] leading-tight"
         >
-          Verifikasi Akun Gagal
+          Verifikasi Akun Gagal{' '}
         </Typography>
 
         <Typography
@@ -30,42 +65,30 @@ const page = () => {
           className="mt-2 mb-8 text-center text-[#494848] text-[14px]"
         >
           Verifikasi gagal karena tautannya sudah kedaluwarsa. Klik tombol di
-          bawah untuk mendapatkan tautan baru (berlaku 24 jam).
+          bawah untuk mendapatkan tautan baru (berlaku 24 jam).{' '}
         </Typography>
 
         <Image
-          src="/images/auth/auth-user-verifikasi-akun-gagal.png"
+          src="/images/auth/link-expired-mascot.png"
           alt="Reset Password Email Sent"
           width={996}
           height={964}
-          className="mx-auto w-[249px] h-[241px] object-contain my-auto"
+          className="mx-auto object-contain w-[249px] h-[241px] aspect-auto"
         />
 
-        <Button className="w-full sm:w-3/4 mx-auto mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
+        <Button className="w-full mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 rounded-lg py-6">
           <Typography
             variant="bt"
             font="Poppins"
             weight="semibold"
-            className="text-center  text-white text-[18px]"
+            className="text-white text-[16px] sm:text-[18px]"
           >
             Kirim Tautan Baru
-          </Typography>{' '}
+          </Typography>
         </Button>
-
-        <Typography
-          variant="bt"
-          font="Montserrat"
-          weight="regular"
-          className="mt-5 mb-5 text-center text-[#494848] text-[14px]"
-        >
-          Belum menerima e-mail?{' '}
-          <a className="underline text-semibold text-[#003499]" href="">
-            Kirim Ulang
-          </a>
-        </Typography>
       </div>
     </div>
   )
 }
 
-export default page
+export default AccountVerificationPage

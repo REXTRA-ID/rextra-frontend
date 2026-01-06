@@ -6,13 +6,48 @@ import React from 'react'
 
 const ResetPassword = () => {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white px-4 text-center">
-      <div className="absolute inset-0 bg-[url('/images/auth/auth-admin-bg.png')] bg-cover bg-center brightness-60"></div>{' '}
+    // Changed min-h-screen to min-h-dvh for better mobile support
+    <div className="relative flex min-h-dvh w-full flex-col items-center justify-center bg-white px-4 text-center overflow-hidden">
+      {/* Background Layer */}
+      <div
+        className="absolute inset-0 z-0 
+    bg-[url('/images/auth/auth-admin-bg.png')] 
+    bg-cover 
+    bg-center 
+    bg-no-repeat 
+    bg-fixed
+    brightness-60
+    hidden
+    md:block"
+        aria-hidden="true"
+      />
+      <Image
+        src="/images/auth/bintang1.png"
+        width={290}
+        height={231}
+        alt="bintang1"
+        className="absolute inset-0 z-0 md:hidden block"
+      />
+      <Image
+        src="/images/auth/bintang2.png"
+        width={290}
+        height={231}
+        alt="bintang2"
+        className="
+    absolute md:hidden block z-10
+    bottom-0 right-0
+    w-[290px] h-auto
+    translate-x-1/4 translate-y-1/4
+    pointer-events-none
+  "
+      />
+
+      {/* Content Card */}
       <div
         className="relative z-10 w-full max-w-[655px]
           rounded-[20px] bg-white
           px-6 sm:px-10 py-10
-          text-center"
+          text-center shadow-xl"
       >
         <Typography
           variant="h4"
@@ -40,12 +75,13 @@ const ResetPassword = () => {
           height={964}
           className="mx-auto object-contain w-[249px] h-[241px] aspect-auto"
         />
+
         <Button className="w-full sm:w-3/4 mx-auto mt-5 bg-[#0046CC] hover:bg-[#0046CC]/80 hover:cursor-pointer rounded-lg">
           <Typography
             variant="bt"
             font="Poppins"
             weight="semibold"
-            className="text-center  text-white text-[18px]"
+            className="text-center text-white text-[18px]"
           >
             Masuk ke REXTRA
           </Typography>
