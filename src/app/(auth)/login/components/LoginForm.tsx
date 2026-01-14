@@ -12,8 +12,19 @@ import Button from '@/components/Button'
 import Input from '@/components/form/Input'
 import { cn } from '@/lib/utils'
 import { useLoginWithGoogleMutation } from '../hook/useLoginMutationFirebase'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { getAccessToken } from '@/lib/cookies'
 
 export default function LoginForm() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const token = getAccessToken()
+    if (token) {
+      router.replace('/dashboard')
+    }
+  }, [router])
   const methods = useForm<z.infer<typeof LoginSchema>>({
     mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
