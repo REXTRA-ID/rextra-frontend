@@ -46,9 +46,9 @@ export const useLoginMutation = () => {
 
       setTimeout(() => {
         if (res.data.role === 'ADMIN') {
-          router.push('/admin')
+          router.replace('/admin')
         } else {
-          router.push('/dashboard')
+          router.replace('/dashboard')
         }
       }, 1000)
     },

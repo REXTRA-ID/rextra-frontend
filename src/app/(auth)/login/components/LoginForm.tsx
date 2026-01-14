@@ -14,17 +14,17 @@ import { cn } from '@/lib/utils'
 import { useLoginWithGoogleMutation } from '../hook/useLoginMutationFirebase'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { getAccessToken } from '@/lib/cookies'
+import { isAuthenticated } from '@/lib/auth'
 
 export default function LoginForm() {
   const router = useRouter()
 
   useEffect(() => {
-    const token = getAccessToken()
-    if (token) {
+    if (isAuthenticated()) {
       router.replace('/dashboard')
     }
   }, [router])
+
   const methods = useForm<z.infer<typeof LoginSchema>>({
     mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
