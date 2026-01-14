@@ -121,6 +121,11 @@ export default function Sidebar() {
         : [...prev, label],
     )
   }
+  const handleLogoClick = () => {
+    if (!isOpen) {
+      setIsOpen(true)
+    }
+  }
 
   // 2. useEffect: Auto-Expand Accordion jika anak di dalamnya sedang aktif
   // Contoh: Jika buka '/kenali-diri/hasil', maka menu 'Kenali Diri' otomatis terbuka
@@ -161,7 +166,11 @@ export default function Sidebar() {
           isOpen ? 'justify-between px-6' : 'justify-center px-0',
         )}
       >
-        <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0">
+        <div
+          onClick={handleLogoClick}
+          className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0"
+          aria-label="Toggle Sidebar"
+        >
           {isOpen ? (
             // --- KONDISI 1: Sidebar Terbuka (Full Logo) ---
             <NextImage
