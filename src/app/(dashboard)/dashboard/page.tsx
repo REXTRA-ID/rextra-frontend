@@ -1,3 +1,5 @@
 export default function PageLayout() {
-  return <div className="flex min-h-screen bg-gray-50"></div>
+  return (
+    <div className="min-h-screen w-full bg-white flex overflow-hidden relative"></div>
+  )
 }

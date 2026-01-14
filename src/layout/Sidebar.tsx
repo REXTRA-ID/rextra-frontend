@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import {
   User,
@@ -105,7 +105,7 @@ export default function Sidebar() {
 
   const toggleMenu = (label: string) => {
     if (!isOpen) {
-      setIsOpen(true) // Auto expand sidebar jika user klik menu dropdown saat collapsed
+      setIsOpen(true)
       setTimeout(() => {
         setExpandedMenus((prev) =>
           prev.includes(label)
@@ -127,19 +127,15 @@ export default function Sidebar() {
     }
   }
 
-  // 2. useEffect: Auto-Expand Accordion jika anak di dalamnya sedang aktif
-  // Contoh: Jika buka '/kenali-diri/hasil', maka menu 'Kenali Diri' otomatis terbuka
   useEffect(() => {
     menuData.forEach((section) => {
       section.items.forEach((item) => {
         if (item.children) {
-          // Cek apakah ada anak yang href-nya sama dengan pathname
           const isChildActive = item.children.some(
             (child) => child.href === pathname,
           )
           if (isChildActive) {
             setExpandedMenus((prev) =>
-              // Cek agar tidak duplikat
               prev.includes(item.label) ? prev : [...prev, item.label],
             )
           }
@@ -151,10 +147,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        // --- Tambahkan Shadow Disini ---
-        // Format: shadow-[offset-x_offset-y_blur_spread_color]
         'shadow-[3px_9px_7px_7px_rgba(77,77,86,0.04)]',
-
         'bg-white border-r border-[#B5B7B8] flex flex-col transition-all duration-300 ease-in-out relative z-20',
         isOpen ? 'w-[318px]' : 'w-[139px]',
       )}
@@ -172,7 +165,6 @@ export default function Sidebar() {
           aria-label="Toggle Sidebar"
         >
           {isOpen ? (
-            // --- KONDISI 1: Sidebar Terbuka (Full Logo) ---
             <NextImage
               src="/dashboard/logo-rextra.webp"
               alt="Rextra Full Logo"
@@ -182,7 +174,6 @@ export default function Sidebar() {
               priority
             />
           ) : (
-            // --- KONDISI 2: Sidebar Tertutup (Icon Only) ---
             <NextImage
               src="/dashboard/logo-mini.svg"
               alt="Rextra Icon"
@@ -221,9 +212,6 @@ export default function Sidebar() {
                 const hasChildren = item.children && item.children.length > 0
                 const isMenuExpanded = expandedMenus.includes(item.label)
 
-                // LOGIKA ACTIVE STATE:
-                // 1. Parent aktif jika URL sama persis
-                // 2. Parent aktif jika salah satu anaknya aktif (opsional, untuk styling parent saat anak dipilih)
                 const isSelfActive = pathname === item.href
                 const isChildActive = item.children?.some(
                   (c) => c.href === pathname,
@@ -232,8 +220,6 @@ export default function Sidebar() {
 
                 return (
                   <div key={item.label}>
-                    {/* Item Utama */}
-                    {/* Jika punya anak, dia jadi Button (Toggle). Jika tidak, dia Link (Navigasi) */}
                     {hasChildren ? (
                       <button
                         onClick={() => toggleMenu(item.label)}
@@ -294,7 +280,6 @@ export default function Sidebar() {
                           isOpen
                             ? 'justify-start'
                             : 'justify-center flex-col gap-1',
-                          // Active State untuk Single Menu
                           isSelfActive
                             ? 'bg-blue-50 text-blue-900 font-semibold'
                             : 'text-gray-600 hover:bg-gray-50',
@@ -329,7 +314,6 @@ export default function Sidebar() {
                       </Link>
                     )}
 
-                    {/* Sub Menu */}
                     {hasChildren && isOpen && (
                       <div
                         className={cn(
@@ -340,8 +324,6 @@ export default function Sidebar() {
                         )}
                       >
                         <div className="min-h-0 relative">
-                          {/* 1. GARIS VERTIKAL (Tree Line) */}
-                          {/* Kita set posisi absolute 'left-9' (2.25rem). z-0 agar di layer paling bawah */}
                           <div className="absolute left-[35.5px] top-0 bottom-4 w-px bg-gray-200 z-0"></div>
 
                           {item.children?.map((subItem, subIdx) => {
@@ -351,19 +333,14 @@ export default function Sidebar() {
                               <Link
                                 key={subIdx}
                                 href={subItem.href}
-                                // Tambahkan padding kiri (pl-16) yang cukup agar teks tidak menabrak garis
                                 className="relative flex items-center py-2 pl-16 text-sm hover:text-blue-600 group/sub w-full"
                               >
-                                {/* 2. DOT INDICATOR */}
                                 <div
                                   className={cn(
-                                    // Posisi: 'left-9' (SAMA PERSIS dengan garis).
-                                    // Gunakan -translate-x-1/2 agar titik berada tepat di tengah garis (center-aligned).
-                                    // z-10: Agar titik muncul DI ATAS garis.
                                     'absolute left-9 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 transition-all z-10',
                                     isSubActive
-                                      ? 'border-blue-600 bg-blue-600' // Aktif: Biru solid
-                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400', // Tidak Aktif: WAJIB bg-white agar garis di belakangnya tertutup
+                                      ? 'border-blue-600 bg-blue-600'
+                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400',
                                   )}
                                 />
 
