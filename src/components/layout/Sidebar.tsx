@@ -1,12 +1,14 @@
+'use client'
+import { useLogoutMutation } from '@/app/(dashboard)/hook/useLogout'
 import {
   Users,
   FileText,
   Layers,
   BarChart2,
-  Settings,
   LogOut,
   LucideIcon,
 } from 'lucide-react'
+import Button from '../Button'
 
 const menus = [
   { label: 'Manajemen User', icon: Users },
@@ -16,6 +18,7 @@ const menus = [
 ]
 
 export default function Sidebar() {
+  const { mutate: logout, isPending } = useLogoutMutation()
   return (
     <aside
       className="
@@ -44,8 +47,15 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="px-2 md:px-4 pb-4 space-y-2">
-        <MenuItem label="Settings" icon={Settings} />
-        <MenuItem label="Log Out" icon={LogOut} danger />
+        <Button
+          leftIcon={LogOut}
+          variant="danger"
+          onClick={() => logout()}
+          disabled={isPending}
+          className="text-red-500 hover:text-red-600"
+        >
+          {isPending ? 'Logging out...' : 'Log Out'}
+        </Button>
       </div>
     </aside>
   )
