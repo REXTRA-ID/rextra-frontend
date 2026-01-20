@@ -130,7 +130,7 @@ export default function LoginForm() {
             type="submit"
             disabled={!isValid || isPending}
             isLoading={isPending}
-            className="w-full bg-[#005DFF] px-4 py-3 rounded-[10px] font-semibold hover:bg-blue-700 transition"
+            className="w-full bg-[#005DFF] px-4 py-3 rounded-[10px] font-semibold hover:bg-blue-700 transition cursor-pointer"
           >
             {isPending ? (
               <div className="flex items-center gap-2">
@@ -156,7 +156,7 @@ export default function LoginForm() {
             onClick={() => loginWithGoogle()}
             disabled={isFirebasePending}
             isLoading={isFirebasePending}
-            className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+            className="w-full border border-[#111415] border-[0.5] px-4 py-3 rounded-[10px] flex items-center justify-center gap-3 hover:bg-gray-50 transition cursor-pointer"
           >
             <NextImage
               width={25}
