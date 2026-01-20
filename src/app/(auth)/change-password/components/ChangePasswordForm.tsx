@@ -37,14 +37,6 @@ export default function ChangePasswordForm() {
     })
   }
 
-  // if (!token) {
-  //   return (
-  //     <Typography className="text-red-500">
-  //       Token tidak valid atau tidak ditemukan
-  //     </Typography>
-  //   )
-  // }
-
   return (
     <div className="w-full lg:pl-20 lg:pr-28 lg:w-1/2 pr-5 pl-[23px] pt-8 pb-16 max-w-lg lg:max-w-full md:max-w-2xl mx-auto relative">
       <div className="pb-[72px] lg:pb-[40px] pt-6 lg:flex hidden">

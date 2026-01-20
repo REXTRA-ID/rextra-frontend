@@ -6,8 +6,9 @@ const tabs = ['Semua Data', 'Selesai', 'Sedang Berjalan', 'Dihentikan']
 
 export default function FilterTabs() {
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col">
+    <div className="flex flex-col gap-4 w-full">
+      {/* TITLE */}
+      <div className="flex flex-col gap-1">
         <Typography variant="h5" weight="bold" font="Poppins">
           Riwayat Tes Kenali Diri
         </Typography>
@@ -16,18 +17,44 @@ export default function FilterTabs() {
         </Typography>
       </div>
 
-      <div className="flex flex-row gap-x-12 w-full">
-        <div className="w-fit mt-2 flex flex-row gap-2 bg-[#D3D4D4]/15 outline-[#B5B7B8] outline-1 rounded-lg p-1">
+      {/* FILTER + SEARCH */}
+      <div className="flex flex-col xl:flex-row xl:items-center gap-4 w-full">
+        {/* TABS */}
+        <div
+          className="
+            flex gap-2
+            w-full xl:w-3/5
+            overflow-x-auto
+            scrollbar-hide
+            bg-[#D3D4D4]/15
+            outline outline-1 outline-[#B5B7B8]
+            rounded-lg
+            justify-between
+            p-1
+          "
+        >
           {tabs.map((t) => (
             <Button
               key={t}
-              className="rounded-lg bg-trasparent outline-0 hover:bg-[#CCDDFF] hover:border-[#669AFF] hover:border-1 shadow-none text-[#669AFF]"
+              className="
+                whitespace-nowrap
+                rounded-lg
+                bg-transparent
+                shadow-none
+                text-[#669AFF]
+                hover:bg-[#CCDDFF]
+                hover:border hover:border-[#669AFF]
+              "
             >
               <Typography variant="l2">{t}</Typography>
             </Button>
           ))}
         </div>
-        <SearchBar />
+
+        {/* SEARCH */}
+        <div className="w-full">
+          <SearchBar />
+        </div>
       </div>
     </div>
   )

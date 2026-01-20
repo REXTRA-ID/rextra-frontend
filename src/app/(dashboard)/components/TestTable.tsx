@@ -36,16 +36,23 @@ export default function TestDataTable() {
   return (
     <div className="w-full bg-white rounded-2xl p-6  border border-gray-200 rounded-2xl">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-6 gap-4">
         <div>
-          <Typography variant="h6" weight="bold" className="text-gray-900">
+          <Typography
+            variant="h6"
+            weight="bold"
+            className="text-gray-900 text-center lg:text-start"
+          >
             List Data
           </Typography>
-          <Typography variant="l1" className="text-gray-500 mt-1">
+          <Typography
+            variant="l1"
+            className="text-gray-500 mt-1 text-center lg:text-start"
+          >
             Menampilkan 10 dari 120 data hasil tes
           </Typography>
         </div>
-        <div className="flex gap-3">
+        <div className="w-full justify-start lg:justify-end flex gap-3 lg:flex-row flex-col">
           <Button className="border-[#E24A4A] border-1  hover:bg-red-100 bg-[#F8D4D4]/25 text-[#E24A4A] gap-2">
             <Trash2 className="w-4 h-4" />
             <Typography variant="l1" weight="medium" className="text-red-600">

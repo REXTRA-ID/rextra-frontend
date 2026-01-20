@@ -15,7 +15,11 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
 }) => {
   return (
     <div className={`flex flex-col gap-2 w-fit ${className}`}>
-      <Typography variant="l1" weight="medium" className="text-gray-900">
+      <Typography
+        variant="l1"
+        weight="medium"
+        className="text-gray-900 xL:block hidden"
+      >
         {label}
       </Typography>
       <div className="w-full">{children}</div>
