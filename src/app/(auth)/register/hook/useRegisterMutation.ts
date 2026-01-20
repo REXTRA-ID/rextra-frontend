@@ -32,10 +32,14 @@ export const useRegisterMutation = () => {
           email: variables.email,
         })
 
+        localStorage.setItem('verify_email', variables.email)
+
         toast.success('Registrasi berhasil, silakan cek email untuk verifikasi')
         router.push('/verifikasi-akun')
       } catch {
         toast.error('Registrasi berhasil, tapi gagal mengirim email verifikasi')
+        // kondisi sukses regis, tpi gagal kirim email
+        router.push('/verifikasi-akun-gagal')
       }
     },
 

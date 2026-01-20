@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Poppins } from '@/lib/font'
 import { Montserrat } from '@/lib/font'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   ...BASE_METADATA,
@@ -30,6 +31,7 @@ export default function RootLayout({
       </head>
       <body className={cn(Poppins.variable, Montserrat.variable, 'dark')}>
         <Providers>{children}</Providers>
+        <Toaster position="top-center" />
         <GoogleAnalytics gaId="" />
       </body>
     </html>
