@@ -1,6 +1,5 @@
 import NextImage from '@/components/next-image'
 import { cn } from '@/lib/utils'
-import React from 'react'
 import LoginForm from './components/LoginForm'
 
 export default function RextraLogin() {

@@ -1,6 +1,5 @@
 import NextImage from '@/components/next-image'
 import { cn } from '@/lib/utils'
-import React from 'react'
 import RegisterForm from './components/RegisterForm'
 
 export default function RextraRegister() {
