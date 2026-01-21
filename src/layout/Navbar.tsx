@@ -1,10 +1,36 @@
 'use client'
 
-import React from 'react'
-import { Bell } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { Bell, LogOut } from 'lucide-react'
 import NextImage from '@/components/next-image'
+import Typography from '@/components/Typography'
+import api from '@/lib/api'
+import { Me } from '@/types/me'
+import Button from '@/components/Button'
+import { useLogoutMutation } from '@/app/(dashboard)/hook/useLogout'
 
 export default function Navbar() {
+  const [user, setUser] = useState<Me['data']['personal_info'] | null>(null)
+  const [open, setOpen] = useState(false)
+  const { mutate: logout, isPending } = useLogoutMutation()
+
+  // Fetch /me
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const res = await api.get<Me>('/api/v1/auth/me')
+        setUser(res.data.data.personal_info)
+      } catch (err) {
+        console.error('Failed to fetch /me', err)
+      }
+    }
+
+    fetchMe()
+  }, [])
+
+  if (!user) {
+    return <header className="h-16 md:h-20 bg-white shadow px-4 md:px-8" />
+  }
   return (
     <header className="h-20 bg-white border-b border-[#B5B7B8] flex items-center justify-between px-8 w-full">
       {/* KIRI: Kosong atau Breadcrumbs (bisa diisi nanti) */}
@@ -21,18 +47,39 @@ export default function Navbar() {
         {/* Separator (Optional vertical line) */}
         <div className="h-8 w-px bg-gray-200 mx-1"></div>
 
-        <div className="flex items-center gap-3 cursor-pointer">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-100">
-            <NextImage src="/dashboard/Gajah.jpg" alt="User Avatar" fill />
-          </div>
+        <div className="relative">
+          <div
+            onClick={() => setOpen((prev) => !prev)}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-100">
+              <NextImage src="/dashboard/Gajah.jpg" alt="User Avatar" fill />
+            </div>
 
-          {/* User Info */}
-          <div className="flex flex-col">
-            <span className="text-sm font-bold text-gray-800">
-              Admin Rextra
-            </span>
-            <span className="text-xs text-gray-500">rextra@gmail.com</span>
+            {/* User Info */}
+
+            <div className="flex flex-col">
+              <Typography className="text-sm font-bold text-gray-800">
+                {user.username || 'User'}
+              </Typography>
+              <Typography className="text-xs text-gray-500">
+                {user.email}
+              </Typography>
+            </div>
           </div>
+          {open && (
+            <div className="absolute right-0 mt-3 w-44 rounded-xl p-2 z-50">
+              <Button
+                leftIcon={LogOut}
+                variant="danger"
+                onClick={() => logout()}
+                disabled={isPending}
+                className="w-full justify-start text-red-500 hover:text-red-600 cursor-pointer"
+              >
+                {isPending ? 'Logging out...' : 'Log Out'}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>
