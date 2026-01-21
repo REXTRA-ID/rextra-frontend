@@ -3,7 +3,11 @@ import { Suspense } from 'react'
 import Navbar from '@/layout/Navbar'
 import Sidebar from '@/layout/Sidebar'
 
-export default function DashboardLayout() {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <ProtectedLayout>
       <Suspense fallback={null}>
@@ -16,6 +20,7 @@ export default function DashboardLayout() {
           <div className="flex-1 flex flex-col min-w-0">
             {/* Navbar (Atas) */}
             <Navbar />
+            {children}
           </div>
         </div>
       </Suspense>
