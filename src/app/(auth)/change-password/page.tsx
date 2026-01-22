@@ -52,7 +52,7 @@ export default function RextraChangePassword() {
           )}
         />
         <NextImage
-          src="/auth/mascot.svg"
+          src="/auth/mascot-rextra.png"
           alt="Mascot Rextra"
           width={540}
           height={550}

@@ -58,7 +58,7 @@ export default function RextraRegister() {
           )}
         />
         <NextImage
-          src="/auth/mascot.svg"
+          src="/auth/mascot-rextra.png"
           alt="Mascot Rextra"
           width={540}
           height={550}
