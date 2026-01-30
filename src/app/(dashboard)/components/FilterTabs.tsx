@@ -1,10 +1,15 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/Typography'
 import { SearchBar } from './Searchbar'
+import { SlidersHorizontal } from 'lucide-react'
 
 const tabs = ['Semua Data', 'Selesai', 'Sedang Berjalan', 'Dihentikan']
 
 export default function FilterTabs() {
+  const onFilterClick = () => {
+    //fungsi saat user klik filter
+  }
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* TITLE */}
@@ -23,7 +28,7 @@ export default function FilterTabs() {
         <div
           className="
             flex gap-2
-            w-full xl:w-3/5
+            w-full xl:w-4/5
             overflow-x-auto
             scrollbar-hide
             bg-[#D3D4D4]/15
@@ -52,8 +57,18 @@ export default function FilterTabs() {
         </div>
 
         {/* SEARCH */}
-        <div className="w-full">
+        <div className="w-full flex flex-row gap-x-5">
           <SearchBar />
+          {/* Filter Button */}
+          <Button
+            onClick={onFilterClick}
+            className="h-[40px] px-8 rounded-lg bg-blue-600 hover:bg-blue-700 flex items-center gap-x-2"
+          >
+            <Typography variant="bt" weight="medium" className="text-white">
+              Filter
+            </Typography>
+            <SlidersHorizontal className="h-5 w-5 text-white" />
+          </Button>
         </div>
       </div>
     </div>

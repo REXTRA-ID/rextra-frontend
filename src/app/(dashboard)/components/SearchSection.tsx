@@ -18,7 +18,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
       <Typography
         variant="l1"
         weight="medium"
-        className="text-gray-900 xL:block hidden"
+        className="text-gray-900 xl:block hidden"
       >
         {label}
       </Typography>

@@ -1,4 +1,5 @@
 import DetailedSearchInfo from '@/app/(dashboard)/components/DetailedSearchInfo'
+import { FilterActions } from '@/app/(dashboard)/components/FilterActions'
 import FilterTabs from '@/app/(dashboard)/components/FilterTabs'
 import TestTable from '@/app/(dashboard)/components/TestTable'
 import React from 'react'

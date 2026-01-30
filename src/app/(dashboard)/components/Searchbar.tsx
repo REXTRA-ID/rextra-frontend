@@ -16,7 +16,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   className,
 }) => {
   return (
-    <div className={`flex w-full xl:w-1/2 items-center gap-4  ${className}`}>
+    <div className={`flex w-full xl:w-full items-center gap-4  ${className}`}>
       {/* Search Input Field */}
       <div className="flex-1 flex items-center gap-x-3 px-4 h-[40px] rounded-lg border border-gray-300 bg-white transition-colors focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
         <Search className="h-6 w-6 text-gray-500" />
@@ -29,17 +29,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onChange={(e) => onSearch?.(e.target.value)}
         />
       </div>
-
-      {/* Filter Button */}
-      <Button
-        onClick={onFilterClick}
-        className="h-[40px] px-8 rounded-lg bg-blue-600 hover:bg-blue-700 flex items-center gap-x-2"
-      >
-        <Typography variant="bt" weight="medium" className="text-white">
-          Filter
-        </Typography>
-        <SlidersHorizontal className="h-5 w-5 text-white" />
-      </Button>
     </div>
   )
 }

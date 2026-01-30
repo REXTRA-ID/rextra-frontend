@@ -37,7 +37,7 @@ export default function TestDataTable() {
     <div className="w-full bg-white rounded-2xl p-6  border border-gray-200 rounded-2xl">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row justify-between items-center mb-6 gap-4">
-        <div>
+        <div className="w-full">
           <Typography
             variant="h6"
             weight="bold"

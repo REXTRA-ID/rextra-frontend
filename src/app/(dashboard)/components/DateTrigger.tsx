@@ -20,7 +20,7 @@ export const DateTrigger: React.FC<DateTriggerProps> = ({
     <Button
       onClick={onClick}
       className={cn(
-        'bg-white shadow-none border-1 w-1/2 justify-start text-left font-normal h-[49px] hover:bg-gray-200/25 rounded-xl border-gray-200',
+        'bg-white shadow-none border-1 w-full justify-start text-left font-normal h-auto hover:bg-gray-200/25 rounded-xl border-gray-200',
         !value && 'text-muted-foreground',
       )}
     >
