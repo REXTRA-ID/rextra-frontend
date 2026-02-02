@@ -1,7 +1,4 @@
 import DataTabs from '@/app/(dashboard)/components/DataTabs'
-import DetailedSearchInfo from '@/app/(dashboard)/components/DetailedSearchInfo'
-import FilterTabs from '@/app/(dashboard)/components/FilterTabs'
-import TestTable from '@/app/(dashboard)/components/TestTable'
 import UmpanBalikFilterTabs from '@/app/(dashboard)/components/UmpanBalikFilterTabs'
 import React from 'react'
 

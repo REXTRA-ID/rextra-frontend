@@ -13,7 +13,7 @@ export default function KontrolPencarianUmpanBalik() {
     <div className="w-full  bg-white border border-gray-200 rounded-2xl p-6  flex flex-col gap-6 mb-12">
       {/* 2. Top Section: Inputs (Row on Desktop, Col on Mobile) */}
       <Typography
-        variant="h6"
+        variant="t2"
         weight="medium"
         className="text-gray-900 xL:hidden block"
       >

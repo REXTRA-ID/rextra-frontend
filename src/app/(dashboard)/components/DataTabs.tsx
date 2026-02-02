@@ -16,6 +16,8 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
+  AreaChart,
+  Tooltip,
   Line,
   LineChart,
   Pie,
@@ -23,6 +25,7 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
+  TooltipProps,
 } from 'recharts'
 import {
   Card,
@@ -39,6 +42,17 @@ import {
   type ChartConfig,
 } from '@/components/ui/chart'
 
+type ChartPayload = {
+  name: string
+  value: number
+  color: string
+  dataKey: string
+  payload: {
+    jumlah_peserta: number
+    jumlah_pengisi_feedback: number
+  }
+}
+
 const chartData = [
   { month: 'Sen', peserta: 25, feedback: 8 },
   { month: 'Sel', peserta: 32, feedback: 12 },
@@ -49,12 +63,14 @@ const chartData = [
   { month: 'Min', peserta: 15, feedback: 5 },
 ]
 
-const chartData2 = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 187, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 90, fill: 'var(--color-other)' },
+const pieChartData = [
+  { label: 'Mengisi', value: 275, fill: '#0046CC' },
+  { label: 'Tidak_Mengisi', value: 200, fill: '#6EA3FF' },
+]
+
+const pieChartData2 = [
+  { label: 'Tidak Ada Kendala', value: 275, fill: '#F8D4D4' },
+  { label: 'Ada Kendala', value: 200, fill: '#DC2626' },
 ]
 
 const chartData3 = [
@@ -153,6 +169,173 @@ const stackedBarChartConfig = {
   high: { label: 'Tinggi', color: '#001F5B' },
 } satisfies ChartConfig
 
+export const CustomAreaChartTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, string>) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const peserta = payload.find((p) => p.dataKey === 'peserta')?.value
+  const feedback = payload.find((p) => p.dataKey === 'feedback')?.value
+
+  return (
+    <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">
+      <Typography
+        variant="l1"
+        weight="bold"
+        font="Poppins"
+        className="text-white"
+      >
+        {label}
+      </Typography>
+
+      {typeof peserta === 'number' && (
+        <Typography
+          variant="l1"
+          weight="regular"
+          font="Poppins"
+          className="text-[#1CB0B4]"
+        >
+          Peserta Tes: {peserta}
+        </Typography>
+      )}
+
+      {typeof feedback === 'number' && (
+        <Typography
+          variant="l1"
+          weight="regular"
+          font="Poppins"
+          className="text-[#3379FF]"
+        >
+          Pengisi Feedback: {feedback}
+        </Typography>
+      )}
+    </div>
+  )
+}
+
+export const CustomPieChartTooltip = ({
+  active,
+  payload,
+}: TooltipProps<number, string>) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const item = payload[0]
+  const label = item.name // "mengisi" | "tidak_mengisi"
+  const value = item.value // number
+  const color = item.payload?.fill // slice color (if any)
+
+  return (
+    <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">
+      <div className="flex items-center gap-2 mt-1">
+        <Typography
+          variant="l1"
+          weight="regular"
+          font="Poppins"
+          className="text-white"
+        >
+          {label?.replace('_', ' ')}: {value}
+        </Typography>
+      </div>
+    </div>
+  )
+}
+
+export const CustomPieChartTooltip2 = ({
+  active,
+  payload,
+}: TooltipProps<number, string>) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const item = payload[0]
+  const label = item.name // "mengisi" | "tidak_mengisi"
+  const value = item.value // number
+  const color = item.payload?.fill // slice color (if any)
+
+  return (
+    <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">
+      <div className="flex items-center gap-2 mt-1">
+        <Typography
+          variant="l1"
+          weight="regular"
+          font="Poppins"
+          className="text-white"
+        >
+          {label?.replace('_', ' ').replace('_', ' ')}: {value}
+        </Typography>
+      </div>
+    </div>
+  )
+}
+
+export const CustomBarChartTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, string>) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const value = payload[0].value
+
+  return (
+    <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">
+      <Typography
+        variant="l1"
+        weight="bold"
+        font="Poppins"
+        className="text-white"
+      >
+        Skor {label}
+      </Typography>
+
+      {typeof value === 'number' && (
+        <Typography
+          variant="l2"
+          weight="regular"
+          font="Poppins"
+          className="text-[#669AFF]"
+        >
+          {value} respon
+        </Typography>
+      )}
+    </div>
+  )
+}
+
+export const CustomStackedBarChartTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, string>) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const value = payload[0].value
+
+  return (
+    <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">
+      <Typography
+        variant="l1"
+        weight="semibold"
+        font="Poppins"
+        className="text-white"
+      >
+        Skor {label}
+      </Typography>
+
+      {typeof value === 'number' && (
+        <Typography
+          variant="l2"
+          weight="regular"
+          font="Poppins"
+          className="text-[#E86E6E]"
+        >
+          {value} respon
+        </Typography>
+      )}
+    </div>
+  )
+}
 export default function DataTabs() {
   return (
     <div className="w-full ">
@@ -268,95 +451,97 @@ function VisualizationPanel() {
           periode="Data untuk periode 1-7 Mei 2025"
           description="Penurunan peserta tes dan pengisi feedback terjadi bersamaan. Perlu peninjauan faktor penyebab (traffic, kampanye, atau kendala teknis)."
           className="w-full"
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
-          <ChartContainer config={lineChartConfig}>
-            <LineChart
-              accessibilityLayer
-              data={chartData}
-              margin={{ left: -25, right: 10, top: 20 }}
-            >
-              {/* Gradient fills */}
-              <defs>
-                <linearGradient id="fillPeserta" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#1CB5B5" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#1CB5B5" stopOpacity={0} />
-                </linearGradient>
+          <div className="w-full h-[320px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={chartData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+              >
+                {/* Gradients */}
+                <defs>
+                  <linearGradient id="fillPeserta" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#1CB5B5" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#1CB5B5" stopOpacity={0} />
+                  </linearGradient>
 
-                <linearGradient id="fillFeedback" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#0046CC" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#0046CC" stopOpacity={0} />
-                </linearGradient>
-              </defs>
+                  <linearGradient id="fillFeedback" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#0046CC" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#0046CC" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
 
-              {/* Grid */}
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                {/* Grid */}
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
-              {/* Y Axis (Vertical Axis Added) */}
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={12}
-                tick={{ fill: '#6B6F70', fontSize: 12 }}
-              />
+                {/* Axes */}
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={10}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                  tick={{ fill: '#6B6F70', fontSize: 12 }}
+                />
 
-              {/* X Axis */}
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={10}
-                tickFormatter={(value) => value.slice(0, 3)}
-                tick={{ fill: '#6B6F70', fontSize: 12 }}
-              />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={12}
+                  tick={{ fill: '#6B6F70', fontSize: 12 }}
+                />
 
-              {/* Tooltip */}
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
+                {/* Tooltip */}
+                <Tooltip content={<CustomAreaChartTooltip />} cursor={false} />
 
-              {/* Area fills */}
-              <Area
-                type="natural"
-                dataKey="peserta"
-                stroke="none"
-                fill="url(#fillPeserta)"
-              />
+                {/* Areas */}
+                <Area
+                  type="natural"
+                  dataKey="feedback"
+                  name="Pengisi Feedback"
+                  stroke="#0046CC"
+                  strokeWidth={2}
+                  fill="url(#fillFeedback)"
+                  dot={{ r: 4, fill: '#003499' }}
+                  activeDot={{ r: 6 }}
+                />
 
-              <Area
-                type="natural"
-                dataKey="feedback"
-                stroke="none"
-                fill="url(#fillFeedback)"
-              />
-
-              {/* Lines */}
-              <Line
-                type="natural"
-                dataKey="peserta"
-                stroke="#1CB5B5"
-                strokeWidth={3}
-                dot={{ r: 6, fill: '#0E8F8F' }}
-                activeDot={{ r: 8 }}
-              />
-
-              <Line
-                type="natural"
-                dataKey="feedback"
-                stroke="#0046CC"
-                strokeWidth={3}
-                dot={{ r: 6, fill: '#003499' }}
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
-          </ChartContainer>
+                <Area
+                  type="natural"
+                  dataKey="peserta"
+                  name="Peserta Tes"
+                  stroke="#1CB5B5"
+                  strokeWidth={2}
+                  fill="url(#fillPeserta)"
+                  dot={{ r: 4, fill: '#0E8F8F' }}
+                  activeDot={{ r: 6 }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </ChartLayout>
 
         <ChartLayout
-          title="Tren Peserta Tes vs Pengisi Feedback"
+          title="Rasio Pengisian Feedback"
           periode="Data untuk periode 1-7 Mei 2025"
           description="Penurunan peserta tes dan pengisi feedback terjadi bersamaan. Perlu peninjauan faktor penyebab (traffic, kampanye, atau kendala teknis)."
           className="w-full"
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer
             config={pieChartConfig}
@@ -366,13 +551,13 @@ function VisualizationPanel() {
               <PieChart>
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<CustomPieChartTooltip />}
                 />
 
                 <Pie
-                  data={chartData2}
-                  dataKey="visitors"
-                  nameKey="browser"
+                  data={pieChartData}
+                  dataKey="value"
+                  nameKey="label"
                   innerRadius={70}
                   outerRadius={110}
                   paddingAngle={0}
@@ -391,6 +576,14 @@ function VisualizationPanel() {
           description="Penilaian cenderung positif, namun masih ada ruang perbaikan (rata-rata 5.5/7)"
           className="w-full"
           isShowDetailSelengkapnyaButton={true}
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer config={barChartConfig1} className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -422,7 +615,7 @@ function VisualizationPanel() {
                 {/* Tooltip — no hover background */}
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<CustomBarChartTooltip />}
                 />
 
                 {/* Bars */}
@@ -445,6 +638,14 @@ function VisualizationPanel() {
           description="Penilaian cenderung positif, namun masih ada ruang perbaikan (rata-rata 5.5/7)"
           className="w-full"
           isShowDetailSelengkapnyaButton={true}
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer config={barChartConfig1} className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -476,7 +677,7 @@ function VisualizationPanel() {
                 {/* Tooltip — no hover background */}
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<CustomBarChartTooltip />}
                 />
 
                 {/* Bars */}
@@ -499,6 +700,14 @@ function VisualizationPanel() {
           description="Penilaian cenderung positif, namun masih ada ruang perbaikan (rata-rata 5.5/7)"
           className="w-full"
           isShowDetailSelengkapnyaButton={true}
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer config={barChartConfig1} className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -530,7 +739,7 @@ function VisualizationPanel() {
                 {/* Tooltip — no hover background */}
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<CustomBarChartTooltip />}
                 />
 
                 {/* Bars */}
@@ -548,9 +757,10 @@ function VisualizationPanel() {
         </ChartLayout>
       </div>
 
+      {/* //pie chart2 */}
       <div className="flex flex-col xl:grid xl:grid-cols-[1fr_2fr] gap-3 mt-3">
         <ChartLayout
-          title="Tren Peserta Tes vs Pengisi Feedback"
+          title="Tingkat Kendala Penggunaan"
           periode="Data untuk periode 1-7 Mei 2025"
           description="Penurunan peserta tes dan pengisi feedback terjadi bersamaan. Perlu peninjauan faktor penyebab (traffic, kampanye, atau kendala teknis)."
           className="w-full"
@@ -563,13 +773,13 @@ function VisualizationPanel() {
               <PieChart>
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<CustomPieChartTooltip />}
                 />
 
                 <Pie
-                  data={chartData2}
-                  dataKey="visitors"
-                  nameKey="browser"
+                  data={pieChartData2}
+                  dataKey="value"
+                  nameKey="label"
                   innerRadius={70}
                   outerRadius={110}
                   paddingAngle={0}
@@ -585,6 +795,14 @@ function VisualizationPanel() {
           periode="Data untuk periode 1–7 Mei 2025"
           description="Kendala tersebar pada banyak jenis, tanpa satu penyebab dominan"
           className="w-full"
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer config={barChartConfig2} className="h-[300px]">
             <BarChart
@@ -594,7 +812,13 @@ function VisualizationPanel() {
               barCategoryGap={10}
             >
               {/* X Axis (hidden scale) */}
-              <XAxis type="number" hide />
+              <XAxis
+                type="number"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: '#111827', fontSize: 12 }}
+                allowDecimals={false} // 👈 key line
+              />
 
               {/* Labels */}
               <YAxis
@@ -602,14 +826,20 @@ function VisualizationPanel() {
                 dataKey="label"
                 tickLine={false}
                 axisLine={false}
-                tick={{ fill: '#111827', fontSize: 14 }}
                 width={180}
+                tick={{
+                  fill: '#212729',
+
+                  fontSize: 14,
+                  textAnchor: 'start', // 👈 left justify
+                  dx: -160,
+                }}
               />
 
               {/* Tooltip */}
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent hideLabel />}
+                content={<CustomStackedBarChartTooltip />}
               />
 
               {/* Bars */}
@@ -626,12 +856,20 @@ function VisualizationPanel() {
         </ChartLayout>
       </div>
 
-      <div className="flex flex-col mt-3">
+      <div className="flex flex-row mt-3">
         <ChartLayout
           title="Komposisi Penilaian: Kemudahan, Relevansi, Kepuasan"
           periode="Data untuk periode 1–7 Mei 2025"
           description="Seluruh metrik menunjukkan dominasi penilaian positif. Fokus berikutnya dapat diarahkan pada peningkatan skala dan konsistensi"
           className="w-full"
+          detailSelengkapnya={{
+            detail:
+              'Sebaran skor terkonsentrasi pada nilai tinggi, dengan 88% respon berada di skor 6–7',
+            implikasi:
+              'Pengalaman pengguna sudah kuat dan konsisten pada aspek ini.',
+            aksi_prioritas:
+              'Pertahankan alur yang ada, lalu fokus pada peningkatan kecil untuk kelompok minor yang masih memberi skor rendah',
+          }}
         >
           <ChartContainer config={stackedBarChartConfig} className="h-[260px]">
             <BarChart
@@ -647,6 +885,7 @@ function VisualizationPanel() {
                 tickFormatter={(v) => `${v}%`}
                 axisLine={false}
                 tickLine={false}
+                tick={{ fill: '#000000' }}
               />
 
               {/* Labels */}
@@ -655,7 +894,13 @@ function VisualizationPanel() {
                 type="category"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#111827', fontSize: 14 }}
+                tick={{
+                  fill: '#000000',
+
+                  fontSize: 14,
+                  textAnchor: 'start', // 👈 left justify
+                  dx: -100,
+                }}
                 width={140}
               />
 
