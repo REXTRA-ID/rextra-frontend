@@ -17,22 +17,46 @@ import { StatusBadge } from './StatusBadge'
 import { TablePagination } from './TablePagination'
 import Typography from '@/components/Typography'
 
-// Mock Data based on the image
-const TABLE_DATA = Array(8)
-  .fill({
-    id: '#KD-001',
-    name: 'Natasya Juliana',
-    category: 'Tes Profil Karir',
-    result: 'SEC', // or RIA
-  })
-  .map((item, i) => ({
-    ...item,
-    // Randomize statuses for visual fidelity to image
-    status: i % 3 === 0 ? 'Selesai' : i % 3 === 1 ? 'Berjalan' : 'Dihentikan',
-    result: i % 2 === 0 ? 'SEC' : 'RIA',
-  }))
+export type TestStatus = 'Selesai' | 'Berjalan' | 'Dihentikan'
+export type TestResultType = 'SEC' | 'RIA'
 
-export default function TestDataTable() {
+export interface MahasiswaTestTable {
+  id: string
+  name: string
+  category: string
+  status: TestStatus
+  result: TestResultType
+}
+// Mock Data based on the image
+// const TABLE_DATA = Array(8)
+//   .fill({
+//     id: '#KD-001',
+//     name: 'Natasya Juliana',
+//     category: 'Tes Profil Karir',
+//     result: 'SEC', // or RIA
+//   })
+//   .map((item, i) => ({
+//     ...item,
+//     // Randomize statuses for visual fidelity to image
+//     status: i % 3 === 0 ? 'Selesai' : i % 3 === 1 ? 'Berjalan' : 'Dihentikan',
+//     result: i % 2 === 0 ? 'SEC' : 'RIA',
+//   }))
+interface TestDataTableProps {
+  tableData: MahasiswaTestTable[]
+}
+
+export default function TestDataTable({ tableData }: TestDataTableProps) {
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [perPage, setPerPage] = React.useState(10)
+
+  const totalData = tableData.length
+  const totalPages = Math.ceil(totalData / perPage)
+
+  const paginatedData = React.useMemo(() => {
+    const start = (currentPage - 1) * perPage
+    return tableData.slice(start, start + perPage)
+  }, [currentPage, perPage])
+
   return (
     <div className="w-full bg-white rounded-2xl p-6  border border-gray-200 rounded-2xl">
       {/* Header Section */}
@@ -132,11 +156,8 @@ export default function TestDataTable() {
             </TableRow>
           </TableHeader>
           <TableBody className="border-0">
-            {TABLE_DATA.map((row, index) => (
-              <TableRow
-                key={index}
-                className="hover:bg-gray-50/50 border-b border-gray-200"
-              >
+            {paginatedData.map((row) => (
+              <TableRow className="hover:bg-gray-50/50 border-b border-gray-200">
                 <TableCell className="text-center">
                   <Checkbox className="border-gray-300 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" />
                 </TableCell>
@@ -198,7 +219,17 @@ export default function TestDataTable() {
       </div>
 
       {/* Footer / Pagination */}
-      <TablePagination />
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        perPage={perPage}
+        totalData={totalData}
+        onPageChange={setCurrentPage}
+        onPerPageChange={(v) => {
+          setCurrentPage(1)
+          setPerPage(v)
+        }}
+      />
     </div>
   )
 }

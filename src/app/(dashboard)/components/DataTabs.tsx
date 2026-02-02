@@ -3,13 +3,12 @@
 import Typography from '@/components/Typography'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import DetailedSearchInfo from './DetailedSearchInfo'
-import TestTable from './TestTable'
+import TestTable, { MahasiswaTestTable } from './TestTable'
 import KontrolPencarianUmpanBalik from './KontrolDanPencarianUmpanBalik'
 import KontrolVisualisasi from './KontrolVisualisasi'
 import ScoreCard from './visualisasi/ScoreCard'
 import { MessageSquareText, Radar, Smile, ThumbsUp } from 'lucide-react'
 import ChartLayout from './visualisasi/ChartLayout'
-import { TrendingUp } from 'lucide-react'
 import {
   Area,
   Bar,
@@ -28,30 +27,12 @@ import {
   TooltipProps,
 } from 'recharts'
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
-
-type ChartPayload = {
-  name: string
-  value: number
-  color: string
-  dataKey: string
-  payload: {
-    jumlah_peserta: number
-    jumlah_pengisi_feedback: number
-  }
-}
+import TestExpertDataTable, { TestResult } from './TestExpertTable'
 
 const chartData = [
   { month: 'Sen', peserta: 25, feedback: 8 },
@@ -82,16 +63,6 @@ const chartData3 = [
   { scale: '6', value: 5, highlight: true }, // highlighted bar
   { scale: '7', value: 4 },
 ]
-const lineChartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'var(--chart-1)',
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'var(--chart-2)',
-  },
-} satisfies ChartConfig
 
 const pieChartConfig = {
   visitors: {
@@ -336,7 +307,15 @@ export const CustomStackedBarChartTooltip = ({
     </div>
   )
 }
-export default function DataTabs() {
+export default function DataTabs({
+  isExpert = false,
+  expertData,
+  mahasiswaData,
+}: {
+  isExpert?: boolean
+  expertData?: TestResult[]
+  mahasiswaData?: MahasiswaTestTable[]
+}) {
   return (
     <div className="w-full ">
       <Tabs defaultValue="raw" className="w-full">
@@ -363,7 +342,11 @@ export default function DataTabs() {
         </div>
 
         <TabsContent value="raw" className="pt-6">
-          <RawDataPanel />
+          <RawDataPanel
+            isExpert={isExpert}
+            mahasiswaData={mahasiswaData}
+            expertData={expertData}
+          />
         </TabsContent>
 
         <TabsContent value="visual" className="pt-6">
@@ -374,11 +357,24 @@ export default function DataTabs() {
   )
 }
 
-function RawDataPanel() {
+function RawDataPanel({
+  isExpert = false,
+  expertData,
+  mahasiswaData,
+}: {
+  isExpert?: boolean
+  expertData?: TestResult[]
+  mahasiswaData?: MahasiswaTestTable[]
+}) {
   return (
     <>
       <KontrolPencarianUmpanBalik />
-      <TestTable />
+
+      {isExpert ? (
+        <TestExpertDataTable tableData={expertData ?? []} />
+      ) : (
+        <TestTable tableData={mahasiswaData ?? []} />
+      )}
     </>
   )
 }
