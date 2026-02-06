@@ -15,7 +15,7 @@ export default function HasilTes() {
         <div className="w-full">
           <FilterActions />
         </div>
-        <TestTable />
+        <TestTable tableData={[]} />
       </div>
     </div>
   )
