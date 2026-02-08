@@ -457,6 +457,80 @@ function VisualizationPanel() {
           }}
         >
           <div className="w-full h-[320px]">
+            <div className="w-full flex flex-row gap-x-8 justify-center items-center">
+              {/* Peserta Tes */}
+              <div className="flex flex-row items-center gap-x-2">
+                <svg
+                  width="44"
+                  height="12"
+                  viewBox="0 0 44 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="0"
+                    y1="6"
+                    x2="44"
+                    y2="6"
+                    stroke="#5BB1B3"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="22"
+                    cy="6"
+                    r="5"
+                    fill="#FFFFFF"
+                    stroke="#5BB1B3"
+                    strokeWidth="3"
+                  />
+                </svg>
+
+                <Typography
+                  variant="l2"
+                  weight="regular"
+                  className="text-[#1CB0B4]"
+                >
+                  Peserta Tes
+                </Typography>
+              </div>
+
+              {/* Pengisi Feedback */}
+              <div className="flex flex-row items-center gap-x-2">
+                <svg
+                  width="44"
+                  height="12"
+                  viewBox="0 0 44 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="0"
+                    y1="6"
+                    x2="44"
+                    y2="6"
+                    stroke="#0046CC"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="22"
+                    cy="6"
+                    r="5"
+                    fill="#FFFFFF"
+                    stroke="#0046CC"
+                    strokeWidth="3"
+                  />
+                </svg>
+
+                <Typography
+                  variant="l2"
+                  weight="regular"
+                  className="text-[#0046CC]"
+                >
+                  Pengisi Feedback
+                </Typography>
+              </div>
+            </div>
+
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
                 data={chartData}
@@ -562,6 +636,28 @@ function VisualizationPanel() {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
+          <div className="w-full flex flex-row gap-x-6 justify-center">
+            <div className="flex flex-row gap-x-2">
+              <div className="p-2 rounded-sm bg-[#0046CC]" />
+              <Typography
+                variant="l2"
+                weight="regular"
+                className="text-[#212729]"
+              >
+                Mengisi feedback
+              </Typography>
+            </div>
+            <div className="flex flex-row gap-x-2">
+              <div className="p-2 rounded-sm bg-[#CCDDFF]" />
+              <Typography
+                variant="l2"
+                weight="regular"
+                className="text-[#212729]"
+              >
+                Tidak mengisi feedback
+              </Typography>
+            </div>
+          </div>
         </ChartLayout>
       </div>
 
@@ -626,6 +722,13 @@ function VisualizationPanel() {
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
+          <Typography
+            variant="l2"
+            weight="regular"
+            className="text-[#6B6F70] text-center mt-2"
+          >
+            Skala 1-7
+          </Typography>
         </ChartLayout>
 
         <ChartLayout
@@ -688,6 +791,13 @@ function VisualizationPanel() {
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
+          <Typography
+            variant="l2"
+            weight="regular"
+            className="text-[#6B6F70] text-center mt-2"
+          >
+            Skala 1-7
+          </Typography>
         </ChartLayout>
 
         <ChartLayout
@@ -750,6 +860,13 @@ function VisualizationPanel() {
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
+          <Typography
+            variant="l2"
+            weight="regular"
+            className="text-[#6B6F70] text-center mt-2"
+          >
+            Skala 1-7
+          </Typography>
         </ChartLayout>
       </div>
 
@@ -784,6 +901,28 @@ function VisualizationPanel() {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
+          <div className="w-full flex flex-row gap-x-6 justify-center">
+            <div className="flex flex-row gap-x-2">
+              <div className="p-2 rounded-sm bg-[#DC2626]" />
+              <Typography
+                variant="l2"
+                weight="regular"
+                className="text-[#212729]"
+              >
+                Ada kendala
+              </Typography>
+            </div>
+            <div className="flex flex-row gap-x-2">
+              <div className="p-2 rounded-sm bg-[#F8D4D4]" />
+              <Typography
+                variant="l2"
+                weight="regular"
+                className="text-[#212729]"
+              >
+                Tidak ada kendala
+              </Typography>
+            </div>
+          </div>
         </ChartLayout>
 
         <ChartLayout
