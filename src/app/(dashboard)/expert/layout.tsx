@@ -9,21 +9,21 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <ProtectedLayout>
-      <Suspense fallback={null}>
-        <div className="flex min-h-screen bg-white">
-          {/* 1. Sidebar (Kiri) */}
-          {/* Sidebar sudah mengatur width-nya sendiri (fixed/expanded) */}
-          <Sidebar />
+    // <ProtectedLayout>
+    <Suspense fallback={null}>
+      <div className="flex min-h-screen bg-white">
+        {/* 1. Sidebar (Kiri) */}
+        {/* Sidebar sudah mengatur width-nya sendiri (fixed/expanded) */}
+        <Sidebar />
 
-          {/* 2. Main Content Wrapper (Kanan) */}
-          <div className="flex-1 flex flex-col min-w-0">
-            {/* Navbar (Atas) */}
-            <Navbar />
-            {children}
-          </div>
+        {/* 2. Main Content Wrapper (Kanan) */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* Navbar (Atas) */}
+          <Navbar />
+          {children}
         </div>
-      </Suspense>
-    </ProtectedLayout>
+      </div>
+    </Suspense>
+    // </ProtectedLayout>
   )
 }

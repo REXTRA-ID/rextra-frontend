@@ -16,6 +16,8 @@ import { Trash2, UploadCloud, Pencil } from 'lucide-react'
 import { StatusBadge } from './StatusBadge'
 import { TablePagination } from './TablePagination'
 import Typography from '@/components/Typography'
+import HapusDataPopUp from './kenali-diri/HapusDataPopUp'
+import ExporDataPopUp from './kenali-diri/ExporDataPopUp'
 
 export type TestStatus = 'Selesai' | 'Berjalan' | 'Dihentikan'
 export type TestResultType = 'SEC' | 'RIA'
@@ -48,6 +50,9 @@ interface TestDataTableProps {
 export default function TestDataTable({ tableData }: TestDataTableProps) {
   const [currentPage, setCurrentPage] = React.useState(1)
   const [perPage, setPerPage] = React.useState(10)
+  const [openDelete, setOpenDelete] = React.useState(false)
+  const [openDeleteMassal, setOpenDeleteMassal] = React.useState(false)
+  const [openExportData, setExportData] = React.useState(false)
 
   const totalData = tableData.length
   const totalPages = Math.ceil(totalData / perPage)
@@ -77,13 +82,19 @@ export default function TestDataTable({ tableData }: TestDataTableProps) {
           </Typography>
         </div>
         <div className="w-full justify-start lg:justify-end flex gap-3 lg:flex-row flex-col">
-          <Button className="border-[#E24A4A] border-1  hover:bg-red-100 bg-[#F8D4D4]/25 text-[#E24A4A] gap-2">
+          <Button
+            className="border-[#E24A4A] border-1  hover:bg-red-100 bg-[#F8D4D4]/25 text-[#E24A4A] gap-2"
+            onClick={() => setOpenDeleteMassal(true)}
+          >
             <Trash2 className="w-4 h-4" />
             <Typography variant="l1" weight="medium" className="text-red-600">
               Hapus Data
             </Typography>
           </Button>
-          <Button className="border-[#0046CC] border-1 bg-[#CCDDFF]/25 hover:bg-blue-100 text-[#0046CC] gap-2">
+          <Button
+            className="border-[#0046CC] border-1 bg-[#CCDDFF]/25 hover:bg-blue-100 text-[#0046CC] gap-2"
+            onClick={() => setExportData(true)}
+          >
             {/* Using UploadCloud as a proxy for the export icon */}
             <Typography variant="l1" weight="medium" className="text-blue-600">
               Ekspor Data
@@ -200,6 +211,7 @@ export default function TestDataTable({ tableData }: TestDataTableProps) {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
+                      onClick={() => setOpenDelete(true)}
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -229,6 +241,29 @@ export default function TestDataTable({ tableData }: TestDataTableProps) {
           setCurrentPage(1)
           setPerPage(v)
         }}
+      />
+
+      <HapusDataPopUp open={openDelete} onClose={() => setOpenDelete(false)}>
+        <Typography className="mt-3 text-gray-600 text-sm">
+          Apakah Anda yakin akan menghapus data tes dengan ID{' '}
+          <span className="font-semibold">#KD-001</span> milik{' '}
+          <span className="font-semibold">Natasya Juliana</span>?
+        </Typography>
+      </HapusDataPopUp>
+
+      <HapusDataPopUp
+        open={openDeleteMassal}
+        onClose={() => setOpenDeleteMassal(false)}
+      >
+        <Typography className="mt-3 text-gray-600 text-sm">
+          Apakah Anda yakin akan menghapus sebanyak
+          <span className="text-[#DC2626]"> 2000 data</span> tes Profil Karier?
+        </Typography>
+      </HapusDataPopUp>
+
+      <ExporDataPopUp
+        open={openExportData}
+        onClose={() => setExportData(false)}
       />
     </div>
   )
