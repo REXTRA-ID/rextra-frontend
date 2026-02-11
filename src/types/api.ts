@@ -13,6 +13,12 @@ export interface PaginatedApiResponse<DataType> {
   data: PaginateData<DataType>
 }
 
+export interface ApiErrorResponse {
+  success: boolean
+  message: string
+  errors?: Record<string, string[]>
+}
+
 export type ApiResponse<T> = {
   success: boolean
   message: string

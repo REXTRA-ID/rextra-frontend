@@ -3,13 +3,27 @@ import { Button } from '@/components/ui/button'
 import Typography from '@/components/Typography'
 import { SearchBar } from './Searchbar'
 import { SlidersHorizontal } from 'lucide-react'
+import { useState } from 'react'
 
-const tabs = ['Semua Data', 'Selesai', 'Sedang Berjalan', 'Dihentikan']
+const tabs = ['Semua Data', 'Selesai', 'Berjalan', 'Dihentikan'] as const
 
-export default function FilterTabs() {
-  const onFilterClick = () => {
-    //fungsi saat user klik filter
-  }
+type TabType = (typeof tabs)[number]
+
+interface FilterTabsProps {
+  activeTab: TabType
+  search: string
+  onTabChange: (tab: TabType) => void
+  onSearchChange: (value: string) => void
+  onFilterClick: () => void
+}
+
+export default function FilterTabs({
+  activeTab,
+  search,
+  onTabChange,
+  onSearchChange,
+  onFilterClick,
+}: FilterTabsProps) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* TITLE */}
@@ -38,27 +52,34 @@ export default function FilterTabs() {
             p-1
           "
         >
-          {tabs.map((t) => (
-            <Button
-              key={t}
-              className="
-                whitespace-nowrap
-                rounded-lg
-                bg-transparent
-                shadow-none
-                text-[#669AFF]
-                hover:bg-[#CCDDFF]
-                hover:border hover:border-[#669AFF]
-              "
-            >
-              <Typography variant="l2">{t}</Typography>
-            </Button>
-          ))}
+          {tabs.map((t) => {
+            const isActive = activeTab === t
+
+            return (
+              <Button
+                key={t}
+                onClick={() => onTabChange(t)}
+                className={`
+                  whitespace-nowrap
+                  rounded-lg
+                  shadow-none
+                  ${
+                    isActive
+                      ? 'bg-[#CCDDFF] text-white border-1 border-[#669AFF]'
+                      : 'bg-transparent text-[#669AFF] hover:bg-[#CCDDFF] hover:border hover:border-[#669AFF]'
+                  }
+                `}
+              >
+                <Typography variant="l2">{t}</Typography>
+              </Button>
+            )
+          })}
         </div>
 
         {/* SEARCH */}
         <div className="w-full flex flex-row gap-x-5">
-          <SearchBar />
+          <SearchBar value={search} onSearch={onSearchChange} />
+
           {/* Filter Button */}
           <Button
             onClick={onFilterClick}

@@ -12,18 +12,19 @@ import Typography from '@/components/Typography'
 interface SelectFilterProps {
   placeholder: string
   options: { label: string; value: string }[]
+  value?: string
+  onChange?: (value: string) => void
 }
 
 export const SelectFilter: React.FC<SelectFilterProps> = ({
   placeholder,
   options,
+  value,
+  onChange,
 }) => {
   return (
-    <Select>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-full h-[46px] rounded-xl border-gray-200">
-        {/* We use a span here to wrap the SelectValue to apply Typography styles if needed, 
-            but usually SelectValue renders simple text. 
-            Let's force the style via class on the Trigger or a custom value component. */}
         <Typography variant="l1" className="text-gray-600 truncate">
           <SelectValue placeholder={placeholder} />
         </Typography>

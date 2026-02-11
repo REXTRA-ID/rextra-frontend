@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import Typography from '@/components/Typography'
+import { DateTrigger } from '../DateTrigger'
 
 interface ExporDataPopUpProps {
   open: boolean
@@ -119,25 +120,27 @@ export default function ExporDataPopUp({ open, onClose }: ExporDataPopUpProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="w-fit">
+              <div className="w-full">
                 <Typography className="mb-2 text-sm text-gray-500">
                   Dari
                 </Typography>
-                <Input
-                  type="month"
-                  disabled={exportAll}
-                  className="border-1 border-[#6B6F70] w-full"
+                <DateTrigger
+                  placeholder="Mulai"
+                  // value={filters.startDate}
+                  // onChange={(date) => onChange('startDate', date)}
+                  className=" w-full rounded-xl border-gray-200"
                 />
               </div>
 
-              <div className="w-fit">
+              <div className="w-full">
                 <Typography className="mb-2 text-sm text-gray-500">
                   Sampai
                 </Typography>
-                <Input
-                  type="month"
-                  disabled={exportAll}
-                  className="border-1 border-[#6B6F70] w-full"
+                <DateTrigger
+                  placeholder="Sampai"
+                  // value={filters.startDate}
+                  // onChange={(date) => onChange('startDate', date)}
+                  className="w-full rounded-xl border-gray-200"
                 />
               </div>
             </div>

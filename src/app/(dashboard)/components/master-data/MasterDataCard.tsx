@@ -80,6 +80,7 @@ const isRIASECTypeBubble = (
 interface MasterDataCardProps {
   children: React.ReactNode
   id: number
+  onClick?: () => void
 }
 
 const RIASEC_LABEL_MAP: Record<RIASECValue, string> = {
@@ -91,7 +92,7 @@ const RIASEC_LABEL_MAP: Record<RIASECValue, string> = {
   C: 'Conventional',
 }
 
-const MasterDataCard = ({ children, id }: MasterDataCardProps) => {
+const MasterDataCard = ({ children, id, onClick }: MasterDataCardProps) => {
   const bubbles = React.Children.toArray(children).filter(isRIASECTypeBubble)
 
   const riasecText = bubbles
@@ -122,7 +123,10 @@ const MasterDataCard = ({ children, id }: MasterDataCardProps) => {
           {riasecText}
         </Typography>
 
-        <div className="rounded-xl bg-[#2662D9] py-1 px-3">
+        <div
+          className="rounded-xl bg-[#2662D9] py-1 px-3 hover:cursor-pointer"
+          onClick={() => onclick}
+        >
           <Typography variant="l2" className="text-white">
             Lihat Detail
           </Typography>
