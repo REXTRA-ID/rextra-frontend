@@ -24,7 +24,8 @@ export default function KontrolVisualisasi() {
           placeholder="Mingguan"
           options={[
             { label: 'Mingguan', value: 'mingguan' },
-            { label: 'Tes IQ', value: 'iq' },
+            { label: 'Bulanan', value: 'bulanan' },
+            { label: 'Tahunan', value: 'tahunan' },
           ]}
         />
       </div>

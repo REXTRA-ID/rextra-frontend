@@ -34,7 +34,7 @@ function toTop5Status(label: string): Top5Status {
 
 // ─── Sub-components (same UI as original) ────────────────────────────────────
 
-const ScoreBadge = ({ value }: { value: number }) => {
+export const ScoreBadge = ({ value }: { value: number }) => {
   const color =
     value >= 6
       ? 'bg-green-100 text-green-700 border-green-300'

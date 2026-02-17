@@ -33,8 +33,6 @@ const STATUS_OPTIONS = [
   { label: 'Tanpa Saran', value: 'no_suggestion' },
 ]
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 interface KontrolPencarianUmpanBalikProps {
   filters: UmpanBalikFilters
   onFiltersChange: (filters: UmpanBalikFilters) => void

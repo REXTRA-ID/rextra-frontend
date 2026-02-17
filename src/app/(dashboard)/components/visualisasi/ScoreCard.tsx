@@ -19,7 +19,7 @@ const ScoreCard = ({
   description,
 }: ScoreCardProps) => {
   return (
-    <div className="flex flex-col p-6 border-[1px] border-[#B5B7B8] rounded-xl">
+    <div className="w-full flex flex-col p-6 border-[1px] border-[#B5B7B8] rounded-xl">
       <div className="flex flex-row gap-x-3">
         {children}
         <Typography

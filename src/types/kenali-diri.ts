@@ -56,6 +56,49 @@ export interface ExportHistoryRequest {
 // server components (page.tsx, mutation.ts) and client components
 // (DataTabs, TestExpertTable, etc.)
 
+// ─── Student Feedback types ──────────────────────────────────────────────────
+
+export interface StudentInfo {
+  user_id: string
+  name: string
+  email: string
+}
+
+export interface StudentFeedbackScores {
+  ease: number
+  relevance: number
+  satisfaction: number
+}
+
+export interface StudentFeedbackItem {
+  id: number
+  student: StudentInfo
+  scores: StudentFeedbackScores
+  obstacles: FeedbackObstacle[] // reuses the shared FeedbackObstacle type
+  message_to_team: string | null
+  submitted_at: string
+  test_category: string
+  test_category_label: string
+}
+
+export interface StudentFeedbackData {
+  items: StudentFeedbackItem[]
+  pagination: PaginationMeta // reuses the shared PaginationMeta type
+}
+
+export interface StudentFeedbackResponse {
+  success: boolean
+  message: string
+  data: StudentFeedbackData
+}
+
+export interface GetStudentFeedbackParams {
+  page?: number
+  page_size?: number
+  search?: string
+  test_category?: string
+}
+
 export interface ExpertInfo {
   name: string
   profession: string
