@@ -1,11 +1,7 @@
 // components/search/DetailedSearchInfo.tsx
 import React from 'react'
-import { SearchSection } from './SearchSection'
-import { DateTrigger } from './DateTrigger'
 import { SelectFilter } from './SelectFilter'
-import { FilterActions } from './FilterActions'
 import Typography from '@/components/Typography'
-import { SearchBar } from './Searchbar'
 
 export default function KontrolVisualisasi() {
   return (
