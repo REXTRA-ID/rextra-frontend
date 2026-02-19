@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Typography from '@/components/Typography'
 import { SearchBar } from './Searchbar'
 import { SlidersHorizontal } from 'lucide-react'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 const tabs = ['Semua Data', 'Selesai', 'Berjalan', 'Dihentikan'] as const
 
@@ -63,10 +63,9 @@ export default function FilterTabs({
                   whitespace-nowrap
                   rounded-lg
                   shadow-none
-                  ${
-                    isActive
-                      ? 'bg-[#CCDDFF] text-white border-1 border-[#669AFF]'
-                      : 'bg-transparent text-[#669AFF] hover:bg-[#CCDDFF] hover:border hover:border-[#669AFF]'
+                  ${isActive
+                    ? 'bg-[#CCDDFF] text-white border-1 border-[#669AFF]'
+                    : 'bg-transparent text-[#669AFF] hover:bg-[#CCDDFF] hover:border hover:border-[#669AFF]'
                   }
                 `}
               >

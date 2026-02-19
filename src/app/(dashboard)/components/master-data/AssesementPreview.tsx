@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Typography from '@/components/Typography'
-import { Target, Zap, Lightbulb, Users, Home, Pen, Eye } from 'lucide-react'
+import { Target, Zap, Lightbulb, Users, Home, Eye } from 'lucide-react'
 import { AssessmentData } from './assesmentTypes'
 import { RIASECTypeBubble } from './RIASECTypeBubble'
 

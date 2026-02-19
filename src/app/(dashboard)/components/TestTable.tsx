@@ -14,9 +14,12 @@ import { Button } from '@/components/ui/button'
 import { Trash2, UploadCloud, Pencil } from 'lucide-react'
 import { TablePagination } from './TablePagination'
 import Typography from '@/components/Typography'
-import { cn } from '@/lib/utils'
-import { Top5Badge } from './Top5Badge'
-import { ExpertFeedbackItem, StudentFeedbackItem } from '@/types/kenali-diri'
+// import { cn } from '@/lib/utils'
+// import { Top5Badge } from './Top5Badge'
+import {
+  // ExpertFeedbackItem,
+  StudentFeedbackItem
+} from '@/types/kenali-diri'
 import { ScoreBadge } from './TestExpertTable'
 
 export type TestStatus = 'Selesai' | 'Berjalan' | 'Dihentikan'

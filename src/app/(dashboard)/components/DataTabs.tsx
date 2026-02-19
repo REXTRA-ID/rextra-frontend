@@ -172,7 +172,7 @@ export const CustomPieChartTooltip = ({
   const item = payload[0]
   const label = item.name // "mengisi" | "tidak_mengisi"
   const value = item.value // number
-  const color = item.payload?.fill // slice color (if any)
+  // const color = item.payload?.fill // slice color (if any)
 
   return (
     <div className="rounded-md border border-gray-200 bg-[#212729] px-3 py-2 shadow-md">

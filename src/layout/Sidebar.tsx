@@ -14,6 +14,8 @@ import {
   DollarSign,
   ChevronDown,
   ChevronLeft,
+  Menu,
+  X,
 } from 'lucide-react'
 import Link from 'next/link'
 import NextImage from '@/components/next-image'
@@ -95,51 +97,32 @@ const menuData = [
   },
 ]
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true)
+// ─── Komponen isi sidebar (dipakai di desktop & mobile) ───────────────────────
+function SidebarContent({
+  isOpen,
+  onClose,
+  isMobile = false,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  isMobile?: boolean
+}) {
   const [expandedMenus, setExpandedMenus] = useState<string[]>([])
-
   const pathname = usePathname()
 
-  const toggleSidebar = () => setIsOpen(!isOpen)
-
   const toggleMenu = (label: string) => {
-    if (!isOpen) {
-      setIsOpen(true) // Auto expand sidebar jika user klik menu dropdown saat collapsed
-      setTimeout(() => {
-        setExpandedMenus((prev) =>
-          prev.includes(label)
-            ? prev.filter((item) => item !== label)
-            : [...prev, label],
-        )
-      }, 150)
-      return
-    }
     setExpandedMenus((prev) =>
-      prev.includes(label)
-        ? prev.filter((item) => item !== label)
-        : [...prev, label],
+      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label],
     )
   }
-  const handleLogoClick = () => {
-    if (!isOpen) {
-      setIsOpen(true)
-    }
-  }
 
-  // 2. useEffect: Auto-Expand Accordion jika anak di dalamnya sedang aktif
-  // Contoh: Jika buka '/kenali-diri/hasil', maka menu 'Kenali Diri' otomatis terbuka
   useEffect(() => {
     menuData.forEach((section) => {
       section.items.forEach((item) => {
         if (item.children) {
-          // Cek apakah ada anak yang href-nya sama dengan pathname
-          const isChildActive = item.children.some(
-            (child) => child.href === pathname,
-          )
+          const isChildActive = item.children.some((child) => child.href === pathname)
           if (isChildActive) {
             setExpandedMenus((prev) =>
-              // Cek agar tidak duplikat
               prev.includes(item.label) ? prev : [...prev, item.label],
             )
           }
@@ -149,30 +132,16 @@ export default function Sidebar() {
   }, [pathname])
 
   return (
-    <aside
-      className={cn(
-        // --- Tambahkan Shadow Disini ---
-        // Format: shadow-[offset-x_offset-y_blur_spread_color]
-        'shadow-[3px_9px_7px_7px_rgba(77,77,86,0.04)]',
-
-        'bg-white border-r border-[#B5B7B8] flex flex-col transition-all duration-300 ease-in-out relative z-20',
-        isOpen ? 'w-[318px]' : 'w-[139px]',
-      )}
-    >
+    <div className="flex flex-col h-full">
       {/* HEADER */}
       <div
         className={cn(
-          'h-20 flex items-center mb-2 transition-all duration-300 border-b border-[#B5B7B8]',
-          isOpen ? 'justify-between px-6' : 'justify-center px-0',
+          'h-20 flex items-center mb-2 border-b border-[#B5B7B8] shrink-0',
+          isOpen && !isMobile ? 'justify-between px-6' : isMobile ? 'justify-between px-6' : 'justify-center px-0',
         )}
       >
-        <div
-          onClick={handleLogoClick}
-          className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0"
-          aria-label="Toggle Sidebar"
-        >
-          {isOpen ? (
-            // --- KONDISI 1: Sidebar Terbuka (Full Logo) ---
+        <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0">
+          {isOpen || isMobile ? (
             <NextImage
               src="/dashboard/logo-rextra.webp"
               alt="Rextra Full Logo"
@@ -182,7 +151,6 @@ export default function Sidebar() {
               priority
             />
           ) : (
-            // --- KONDISI 2: Sidebar Tertutup (Icon Only) ---
             <NextImage
               src="/dashboard/logo-mini.svg"
               alt="Rextra Icon"
@@ -193,12 +161,14 @@ export default function Sidebar() {
             />
           )}
         </div>
-        {isOpen && (
+
+        {/* Tombol tutup: di desktop ketika open, selalu di mobile */}
+        {(isOpen || isMobile) && (
           <button
-            onClick={toggleSidebar}
-            className="text-gray-400 hover:text-gray-600"
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 ml-2"
           >
-            <ChevronLeft size={24} />
+            {isMobile ? <X size={24} /> : <ChevronLeft size={24} />}
           </button>
         )}
       </div>
@@ -210,7 +180,7 @@ export default function Sidebar() {
             <h3
               className={cn(
                 'text-gray-400 text-sm mb-4 transition-all duration-300',
-                isOpen ? 'text-left px-4' : 'text-center text-xs',
+                isOpen || isMobile ? 'text-left px-4' : 'text-center text-xs',
               )}
             >
               {section.category}
@@ -220,32 +190,22 @@ export default function Sidebar() {
               {section.items.map((item) => {
                 const hasChildren = item.children && item.children.length > 0
                 const isMenuExpanded = expandedMenus.includes(item.label)
-
-                // LOGIKA ACTIVE STATE:
-                // 1. Parent aktif jika URL sama persis
-                // 2. Parent aktif jika salah satu anaknya aktif (opsional, untuk styling parent saat anak dipilih)
                 const isSelfActive = pathname === item.href
-                const isChildActive = item.children?.some(
-                  (c) => c.href === pathname,
-                )
+                const isChildActive = item.children?.some((c) => c.href === pathname)
                 const isParentActive = isSelfActive || isChildActive
 
                 return (
                   <div key={item.label}>
-                    {/* Item Utama */}
-                    {/* Jika punya anak, dia jadi Button (Toggle). Jika tidak, dia Link (Navigasi) */}
                     {hasChildren ? (
                       <button
                         onClick={() => toggleMenu(item.label)}
                         className={cn(
                           'flex items-center w-full p-3 rounded-2xl transition-all duration-200 group relative',
-                          isOpen
-                            ? 'justify-between'
-                            : 'justify-center flex-col gap-1',
-                          isParentActive && isOpen
+                          isOpen || isMobile ? 'justify-between' : 'justify-center flex-col gap-1',
+                          isParentActive && (isOpen || isMobile)
                             ? 'bg-blue-50 text-blue-900 font-semibold'
                             : 'text-gray-600 hover:bg-gray-50',
-                          isParentActive && !isOpen
+                          isParentActive && !isOpen && !isMobile
                             ? 'bg-blue-50/50 text-blue-900'
                             : '',
                         )}
@@ -253,7 +213,7 @@ export default function Sidebar() {
                         <div
                           className={cn(
                             'flex items-center gap-4',
-                            !isOpen && 'flex-col gap-0',
+                            !isOpen && !isMobile && 'flex-col gap-0',
                           )}
                         >
                           <item.icon
@@ -268,15 +228,13 @@ export default function Sidebar() {
                           <span
                             className={cn(
                               'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
-                              isOpen
-                                ? 'opacity-100'
-                                : 'opacity-0 w-0 h-0 hidden',
+                              isOpen || isMobile ? 'opacity-100' : 'opacity-0 w-0 h-0 hidden',
                             )}
                           >
                             {item.label}
                           </span>
                         </div>
-                        {isOpen && (
+                        {(isOpen || isMobile) && (
                           <ChevronDown
                             size={18}
                             className={cn(
@@ -291,10 +249,7 @@ export default function Sidebar() {
                         href={item.href}
                         className={cn(
                           'flex items-center w-full p-3 rounded-2xl transition-all duration-200 group relative',
-                          isOpen
-                            ? 'justify-start'
-                            : 'justify-center flex-col gap-1',
-                          // Active State untuk Single Menu
+                          isOpen || isMobile ? 'justify-start' : 'justify-center flex-col gap-1',
                           isSelfActive
                             ? 'bg-blue-50 text-blue-900 font-semibold'
                             : 'text-gray-600 hover:bg-gray-50',
@@ -303,7 +258,7 @@ export default function Sidebar() {
                         <div
                           className={cn(
                             'flex items-center gap-4',
-                            !isOpen && 'flex-col gap-0',
+                            !isOpen && !isMobile && 'flex-col gap-0',
                           )}
                         >
                           <item.icon
@@ -318,9 +273,7 @@ export default function Sidebar() {
                           <span
                             className={cn(
                               'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
-                              isOpen
-                                ? 'opacity-100'
-                                : 'opacity-0 w-0 h-0 hidden',
+                              isOpen || isMobile ? 'opacity-100' : 'opacity-0 w-0 h-0 hidden',
                             )}
                           >
                             {item.label}
@@ -330,7 +283,7 @@ export default function Sidebar() {
                     )}
 
                     {/* Sub Menu */}
-                    {hasChildren && isOpen && (
+                    {hasChildren && (isOpen || isMobile) && (
                       <div
                         className={cn(
                           'grid transition-all duration-300 ease-in-out overflow-hidden',
@@ -340,38 +293,26 @@ export default function Sidebar() {
                         )}
                       >
                         <div className="min-h-0 relative">
-                          {/* 1. GARIS VERTIKAL (Tree Line) */}
-                          {/* Kita set posisi absolute 'left-9' (2.25rem). z-0 agar di layer paling bawah */}
-                          <div className="absolute left-[35.5px] top-0 bottom-4 w-px bg-gray-200 z-0"></div>
-
+                          <div className="absolute left-[35.5px] top-0 bottom-4 w-px bg-gray-200 z-0" />
                           {item.children?.map((subItem, subIdx) => {
                             const isSubActive = pathname === subItem.href
-
                             return (
                               <Link
                                 key={subIdx}
                                 href={subItem.href}
-                                // Tambahkan padding kiri (pl-16) yang cukup agar teks tidak menabrak garis
                                 className="relative flex items-center py-2 pl-16 text-sm hover:text-blue-600 group/sub w-full"
                               >
-                                {/* 2. DOT INDICATOR */}
                                 <div
                                   className={cn(
-                                    // Posisi: 'left-9' (SAMA PERSIS dengan garis).
-                                    // Gunakan -translate-x-1/2 agar titik berada tepat di tengah garis (center-aligned).
-                                    // z-10: Agar titik muncul DI ATAS garis.
                                     'absolute left-9 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 transition-all z-10',
                                     isSubActive
-                                      ? 'border-blue-600 bg-blue-600' // Aktif: Biru solid
-                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400', // Tidak Aktif: WAJIB bg-white agar garis di belakangnya tertutup
+                                      ? 'border-blue-600 bg-blue-600'
+                                      : 'border-gray-300 bg-white group-hover/sub:border-blue-400',
                                   )}
                                 />
-
                                 <span
                                   className={cn(
-                                    isSubActive
-                                      ? 'font-medium text-blue-900'
-                                      : 'text-gray-500',
+                                    isSubActive ? 'font-medium text-blue-900' : 'text-gray-500',
                                   )}
                                 >
                                   {subItem.label}
@@ -389,14 +330,101 @@ export default function Sidebar() {
           </div>
         ))}
       </div>
+    </div>
+  )
+}
 
-      {!isOpen && (
-        <button
-          onClick={toggleSidebar}
-          className="absolute top-0 bottom-0 left-0 right-0 z-10 w-full h-full cursor-pointer bg-transparent"
-          style={{ display: isOpen ? 'none' : 'block', pointerEvents: 'none' }}
+// ─── Komponen utama Sidebar ───────────────────────────────────────────────────
+export default function Sidebar() {
+  const [isOpen, setIsOpen] = useState(true)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  const toggleSidebar = () => setIsOpen((v) => !v)
+  const openMobile = () => setMobileOpen(true)
+  const closeMobile = () => setMobileOpen(false)
+
+  // Tutup mobile sidebar saat rute berubah
+  const pathname = usePathname()
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  // Prevent body scroll saat mobile sidebar terbuka
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
+
+  return (
+    <>
+      {/* ── DESKTOP SIDEBAR (md ke atas) ─────────────────────────────────── */}
+      <aside
+        className={cn(
+          'hidden md:flex flex-col',
+          'shadow-[3px_9px_7px_7px_rgba(77,77,86,0.04)]',
+          'bg-white border-r border-[#B5B7B8] transition-all duration-300 ease-in-out',
+          isOpen ? 'w-[318px]' : 'w-[139px]',
+        )}
+      >
+        <SidebarContent
+          isOpen={isOpen}
+          onClose={toggleSidebar}
+          isMobile={false}
+        />
+
+        {/* Klik seluruh area saat collapsed untuk expand */}
+        {!isOpen && (
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-0 bottom-0 left-0 right-0 z-10 w-full h-full cursor-pointer bg-transparent"
+            style={{ pointerEvents: 'none' }}
+          />
+        )}
+      </aside>
+
+      {/* ── MOBILE: Hamburger icon (di bawah md) ──────────────────────────── */}
+      <button
+        onClick={openMobile}
+        className={cn(
+          'md:hidden fixed top-4 left-4 z-40',
+          'bg-white border border-[#B5B7B8] rounded-xl p-2',
+          'shadow-md text-gray-600 hover:text-gray-900 transition-colors',
+        )}
+        aria-label="Buka Menu"
+      >
+        <Menu size={22} />
+      </button>
+
+      {/* ── MOBILE: Overlay backdrop ─────────────────────────────────────── */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+          onClick={closeMobile}
         />
       )}
-    </aside>
+
+      {/* ── MOBILE: Sidebar drawer (slide in dari kiri) ───────────────────── */}
+      <aside
+        className={cn(
+          'md:hidden fixed top-0 left-0 h-full z-50',
+          'bg-white shadow-2xl',
+          'w-[300px]',
+          'transition-transform duration-300 ease-in-out',
+          mobileOpen ? 'translate-x-0' : '-translate-x-full',
+        )}
+      >
+        <SidebarContent
+          isOpen={true}
+          onClose={closeMobile}
+          isMobile={true}
+        />
+      </aside>
+    </>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { FileText, Upload, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Input } from '@/components/ui/input'
+// import { Input } from '@/components/ui/input'
 import Typography from '@/components/Typography'
 import { DateTrigger } from '../DateTrigger'
 

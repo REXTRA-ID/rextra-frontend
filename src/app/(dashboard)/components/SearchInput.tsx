@@ -1,7 +1,7 @@
 // components/search/SearchInput.tsx
 import React from 'react'
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input' // Assuming you have a shadcn/base input or standard input
+// import { Input } from '@/components/ui/input' // Assuming you have a shadcn/base input or standard input
 import { cn } from '@/lib/utils'
 
 interface SearchInputProps {
