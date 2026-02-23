@@ -86,8 +86,7 @@ export const useBulkDeleteKenaliDiri = () => {
       toast.success(res.message)
     },
     onError: (error) => {
-      const message =
-        error.response?.data?.message ?? 'Failed to delete data'
+      const message = error.response?.data?.message ?? 'Failed to delete data'
 
       toast.error(message)
     },

@@ -112,7 +112,9 @@ function SidebarContent({
 
   const toggleMenu = (label: string) => {
     setExpandedMenus((prev) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label],
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
+        : [...prev, label],
     )
   }
 
@@ -120,7 +122,9 @@ function SidebarContent({
     menuData.forEach((section) => {
       section.items.forEach((item) => {
         if (item.children) {
-          const isChildActive = item.children.some((child) => child.href === pathname)
+          const isChildActive = item.children.some(
+            (child) => child.href === pathname,
+          )
           if (isChildActive) {
             setExpandedMenus((prev) =>
               prev.includes(item.label) ? prev : [...prev, item.label],
@@ -137,7 +141,11 @@ function SidebarContent({
       <div
         className={cn(
           'h-20 flex items-center mb-2 border-b border-[#B5B7B8] shrink-0',
-          isOpen && !isMobile ? 'justify-between px-6' : isMobile ? 'justify-between px-6' : 'justify-center px-0',
+          isOpen && !isMobile
+            ? 'justify-between px-6'
+            : isMobile
+              ? 'justify-between px-6'
+              : 'justify-center px-0',
         )}
       >
         <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap min-w-0">
@@ -191,7 +199,9 @@ function SidebarContent({
                 const hasChildren = item.children && item.children.length > 0
                 const isMenuExpanded = expandedMenus.includes(item.label)
                 const isSelfActive = pathname === item.href
-                const isChildActive = item.children?.some((c) => c.href === pathname)
+                const isChildActive = item.children?.some(
+                  (c) => c.href === pathname,
+                )
                 const isParentActive = isSelfActive || isChildActive
 
                 return (
@@ -201,7 +211,9 @@ function SidebarContent({
                         onClick={() => toggleMenu(item.label)}
                         className={cn(
                           'flex items-center w-full p-3 rounded-2xl transition-all duration-200 group relative',
-                          isOpen || isMobile ? 'justify-between' : 'justify-center flex-col gap-1',
+                          isOpen || isMobile
+                            ? 'justify-between'
+                            : 'justify-center flex-col gap-1',
                           isParentActive && (isOpen || isMobile)
                             ? 'bg-blue-50 text-blue-900 font-semibold'
                             : 'text-gray-600 hover:bg-gray-50',
@@ -228,7 +240,9 @@ function SidebarContent({
                           <span
                             className={cn(
                               'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
-                              isOpen || isMobile ? 'opacity-100' : 'opacity-0 w-0 h-0 hidden',
+                              isOpen || isMobile
+                                ? 'opacity-100'
+                                : 'opacity-0 w-0 h-0 hidden',
                             )}
                           >
                             {item.label}
@@ -249,7 +263,9 @@ function SidebarContent({
                         href={item.href}
                         className={cn(
                           'flex items-center w-full p-3 rounded-2xl transition-all duration-200 group relative',
-                          isOpen || isMobile ? 'justify-start' : 'justify-center flex-col gap-1',
+                          isOpen || isMobile
+                            ? 'justify-start'
+                            : 'justify-center flex-col gap-1',
                           isSelfActive
                             ? 'bg-blue-50 text-blue-900 font-semibold'
                             : 'text-gray-600 hover:bg-gray-50',
@@ -273,7 +289,9 @@ function SidebarContent({
                           <span
                             className={cn(
                               'whitespace-nowrap transition-all duration-200 font-medium font-Poppins text-[16px]',
-                              isOpen || isMobile ? 'opacity-100' : 'opacity-0 w-0 h-0 hidden',
+                              isOpen || isMobile
+                                ? 'opacity-100'
+                                : 'opacity-0 w-0 h-0 hidden',
                             )}
                           >
                             {item.label}
@@ -312,7 +330,9 @@ function SidebarContent({
                                 />
                                 <span
                                   className={cn(
-                                    isSubActive ? 'font-medium text-blue-900' : 'text-gray-500',
+                                    isSubActive
+                                      ? 'font-medium text-blue-900'
+                                      : 'text-gray-500',
                                   )}
                                 >
                                   {subItem.label}
@@ -419,11 +439,7 @@ export default function Sidebar() {
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <SidebarContent
-          isOpen={true}
-          onClose={closeMobile}
-          isMobile={true}
-        />
+        <SidebarContent isOpen={true} onClose={closeMobile} isMobile={true} />
       </aside>
     </>
   )
