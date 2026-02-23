@@ -35,25 +35,25 @@ import { ExpertFeedbackItem } from '@/types/kenali-diri'
 
 // Config
 
-const pieChartData = [
-  { label: 'Mengisi', value: 275, fill: '#0046CC' },
-  { label: 'Tidak_Mengisi', value: 200, fill: '#6EA3FF' },
-]
+// const pieChartData = [
+//   { label: 'Mengisi', value: 275, fill: '#0046CC' },
+//   { label: 'Tidak_Mengisi', value: 200, fill: '#6EA3FF' },
+// ]
 
-const pieChartData2 = [
-  { label: 'Tidak Ada Kendala', value: 275, fill: '#F8D4D4' },
-  { label: 'Ada Kendala', value: 200, fill: '#DC2626' },
-]
+// const pieChartData2 = [
+//   { label: 'Tidak Ada Kendala', value: 275, fill: '#F8D4D4' },
+//   { label: 'Ada Kendala', value: 200, fill: '#DC2626' },
+// ]
 
-const chartData3 = [
-  { scale: '1', value: 1 },
-  { scale: '2', value: 1 },
-  { scale: '3', value: 1 },
-  { scale: '4', value: 1 },
-  { scale: '5', value: 3 },
-  { scale: '6', value: 5, highlight: true }, // highlighted bar
-  { scale: '7', value: 4 },
-]
+// const chartData3 = [
+//   { scale: '1', value: 1 },
+//   { scale: '2', value: 1 },
+//   { scale: '3', value: 1 },
+//   { scale: '4', value: 1 },
+//   { scale: '5', value: 3 },
+//   { scale: '6', value: 5, highlight: true }, // highlighted bar
+//   { scale: '7', value: 4 },
+// ]
 
 const pieChartConfig = {
   visitors: {
@@ -88,14 +88,14 @@ const barChartConfig1 = {
   },
 } satisfies ChartConfig
 
-const barChartData2 = [
-  { label: 'Durasi tes terlalu lama', value: 6, highlight: true },
-  { label: 'Navigasi membingungkan', value: 3 },
-  { label: 'Pertanyaan membingungkan', value: 2 },
-  { label: 'Error/bug sistem', value: 2 },
-  { label: 'Penjelasan sulit dipahami', value: 2 },
-  { label: 'Instruksi kurang jelas', value: 2 },
-]
+// const barChartData2 = [
+//   { label: 'Durasi tes terlalu lama', value: 6, highlight: true },
+//   { label: 'Navigasi membingungkan', value: 3 },
+//   { label: 'Pertanyaan membingungkan', value: 2 },
+//   { label: 'Error/bug sistem', value: 2 },
+//   { label: 'Penjelasan sulit dipahami', value: 2 },
+//   { label: 'Instruksi kurang jelas', value: 2 },
+// ]
 
 const barChartConfig2 = {
   value: {
@@ -104,26 +104,26 @@ const barChartConfig2 = {
   },
 } satisfies ChartConfig
 
-const stackedBarChartData = [
-  {
-    label: 'Kemudahan',
-    low: 15,
-    mid: 8,
-    high: 77,
-  },
-  {
-    label: 'Relevansi',
-    low: 15,
-    mid: 15,
-    high: 70,
-  },
-  {
-    label: 'Kepuasan',
-    low: 15,
-    mid: 8,
-    high: 77,
-  },
-]
+// const stackedBarChartData = [
+//   {
+//     label: 'Kemudahan',
+//     low: 15,
+//     mid: 8,
+//     high: 77,
+//   },
+//   {
+//     label: 'Relevansi',
+//     low: 15,
+//     mid: 15,
+//     high: 70,
+//   },
+//   {
+//     label: 'Kepuasan',
+//     low: 15,
+//     mid: 8,
+//     high: 77,
+//   },
+// ]
 
 const stackedBarChartConfig = {
   low: { label: 'Rendah', color: '#6EA3FF' },

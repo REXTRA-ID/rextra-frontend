@@ -2,8 +2,21 @@
 import React from 'react'
 import Typography from '@/components/Typography'
 import { Target, Zap, Lightbulb, Users, Home, Eye } from 'lucide-react'
-import { AssessmentData } from './assesmentTypes'
+// Assuming AssessmentData and the item type are exported from assessmentTypes
+import { AssessmentData, AssessmentItem } from './assesmentTypes'
 import { RIASECTypeBubble } from './RIASECTypeBubble'
+
+/**
+ * Interface for PreviewCard Props
+ */
+interface PreviewCardProps {
+  title: string
+  icon: React.ReactNode
+  items: AssessmentItem[]
+  bgColor: string
+  borderColor: string
+  className?: string // Optional property
+}
 
 export default function AssessmentPreview({ data }: { data: AssessmentData }) {
   return (
@@ -105,8 +118,8 @@ function PreviewCard({
   items,
   bgColor,
   borderColor,
-  className,
-}: any) {
+  className = '',
+}: PreviewCardProps) {
   return (
     <div
       className={`p-6 rounded-xl border ${bgColor} ${borderColor} ${className}`}
@@ -119,8 +132,9 @@ function PreviewCard({
       </div>
       <div className="space-y-4">
         {items.length > 0 ? (
-          items.map((item: any) => (
+          items.map((item: AssessmentItem) => (
             <div key={item.id} className="flex flex-row gap-x-3">
+              {/* Note: Rendering the icon again inside the loop matches your original code */}
               {icon}
               <div className="flex flex-col">
                 <Typography

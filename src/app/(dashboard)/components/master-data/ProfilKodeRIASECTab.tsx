@@ -1,14 +1,9 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Typography from '@/components/Typography'
 import MasterDataCard from './MasterDataCard'
 import { RIASECType, RIASECTypeBubble } from './RIASECTypeBubble'
-import {
-  getAllRIASEC,
-  RIASECListItem,
-  RIASECCodeType,
-} from '@/app/(dashboard)/expert/kenali-diri/master-data/hooks/mutation'
 
 type Props = {
   data: {

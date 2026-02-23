@@ -18,7 +18,7 @@ import Typography from '@/components/Typography'
 // import { Top5Badge } from './Top5Badge'
 import {
   // ExpertFeedbackItem,
-  StudentFeedbackItem
+  StudentFeedbackItem,
 } from '@/types/kenali-diri'
 import { ScoreBadge } from './TestExpertTable'
 
@@ -26,13 +26,15 @@ export type TestStatus = 'Selesai' | 'Berjalan' | 'Dihentikan'
 
 export type TestResultType = 'SEC' | 'RIA' | string
 
-type TestResult = StudentFeedbackItem
+export type MahasiswaTestTable = StudentFeedbackItem
 
 interface TestDataTableProps {
-  tableData: TestResult[]
+  tableData: MahasiswaTestTable[]
 }
 
-export default function TestExpertDataTable({ tableData }: TestDataTableProps) {
+export default function TestMahasiswaDataTable({
+  tableData,
+}: TestDataTableProps) {
   const [currentPage, setCurrentPage] = React.useState(1)
   const [perPage, setPerPage] = React.useState(10)
 

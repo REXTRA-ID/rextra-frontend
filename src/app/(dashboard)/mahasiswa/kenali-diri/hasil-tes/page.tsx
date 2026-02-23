@@ -1,88 +1,85 @@
 'use client'
 
 import React from 'react'
-import TestTable, {
-  MahasiswaTestTable,
-  TestStatus,
-} from '@/app/(dashboard)/components/TestTable'
+import TestTable, { TestStatus } from '@/app/(dashboard)/components/TestTable'
 import FilterTabs from '@/app/(dashboard)/components/FilterTabs'
 import DetailedSearchInfo, {
   Filters,
 } from '@/app/(dashboard)/components/DetailedSearchInfo'
 import { useKenaliDiriHistory } from './hooks/mutation'
-import { KenaliDiriHistoryItem } from '@/types/kenali-diri'
-export const DUMMY_TEST_DATA: MahasiswaTestTable[] = [
-  {
-    id: '#KD-001',
-    name: 'Natasya Juliana',
-    category: 'Tes Profil Karir',
-    status: 'Selesai',
-    result: 'SEC',
-  },
-  {
-    id: '#KD-002',
-    name: 'Rizky Ramadhan',
-    category: 'Tes Minat Bakat',
-    status: 'Berjalan',
-    result: 'RIA',
-  },
-  {
-    id: '#KD-003',
-    name: 'Alya Putri Mahesa',
-    category: 'Tes Profil Karir',
-    status: 'Dihentikan',
-    result: 'SEC',
-  },
-  {
-    id: '#KD-004',
-    name: 'Fajar Pratama',
-    category: 'Tes Kepribadian',
-    status: 'Selesai',
-    result: 'RIA',
-  },
-  {
-    id: '#KD-005',
-    name: 'Siti Nurhaliza',
-    category: 'Tes Minat Bakat',
-    status: 'Berjalan',
-    result: 'SEC',
-  },
-  {
-    id: '#KD-006',
-    name: 'Muhammad Iqbal',
-    category: 'Tes Profil Karir',
-    status: 'Selesai',
-    result: 'RIA',
-  },
-  {
-    id: '#KD-007',
-    name: 'Dinda Ayu Lestari',
-    category: 'Tes Kepribadian',
-    status: 'Dihentikan',
-    result: 'SEC',
-  },
-  {
-    id: '#KD-008',
-    name: 'Andi Saputra',
-    category: 'Tes Minat Bakat',
-    status: 'Selesai',
-    result: 'RIA',
-  },
-  {
-    id: '#KD-009',
-    name: 'Kevin Jonathan',
-    category: 'Tes Profil Karir',
-    status: 'Berjalan',
-    result: 'SEC',
-  },
-  {
-    id: '#KD-010',
-    name: 'Putri Anindya',
-    category: 'Tes Kepribadian',
-    status: 'Selesai',
-    result: 'RIA',
-  },
-]
+import { KenaliDiriHistoryItem, StudentFeedbackItem } from '@/types/kenali-diri'
+// export const DUMMY_TEST_DATA: MahasiswaTestTable[] = [
+//   {
+//     id: '#KD-001',
+//     name: 'Natasya Juliana',
+//     category: 'Tes Profil Karir',
+//     status: 'Selesai',
+//     result: 'SEC',
+//   },
+//   {
+//     id: '#KD-002',
+//     name: 'Rizky Ramadhan',
+//     category: 'Tes Minat Bakat',
+//     status: 'Berjalan',
+//     result: 'RIA',
+//   },
+//   {
+//     id: '#KD-003',
+//     name: 'Alya Putri Mahesa',
+//     category: 'Tes Profil Karir',
+//     status: 'Dihentikan',
+//     result: 'SEC',
+//   },
+//   {
+//     id: '#KD-004',
+//     name: 'Fajar Pratama',
+//     category: 'Tes Kepribadian',
+//     status: 'Selesai',
+//     result: 'RIA',
+//   },
+//   {
+//     id: '#KD-005',
+//     name: 'Siti Nurhaliza',
+//     category: 'Tes Minat Bakat',
+//     status: 'Berjalan',
+//     result: 'SEC',
+//   },
+//   {
+//     id: '#KD-006',
+//     name: 'Muhammad Iqbal',
+//     category: 'Tes Profil Karir',
+//     status: 'Selesai',
+//     result: 'RIA',
+//   },
+//   {
+//     id: '#KD-007',
+//     name: 'Dinda Ayu Lestari',
+//     category: 'Tes Kepribadian',
+//     status: 'Dihentikan',
+//     result: 'SEC',
+//   },
+//   {
+//     id: '#KD-008',
+//     name: 'Andi Saputra',
+//     category: 'Tes Minat Bakat',
+//     status: 'Selesai',
+//     result: 'RIA',
+//   },
+//   {
+//     id: '#KD-009',
+//     name: 'Kevin Jonathan',
+//     category: 'Tes Profil Karir',
+//     status: 'Berjalan',
+//     result: 'SEC',
+//   },
+//   {
+//     id: '#KD-010',
+//     name: 'Putri Anindya',
+//     category: 'Tes Kepribadian',
+//     status: 'Selesai',
+//     result: 'RIA',
+//   },
+// ]
 /* =======================================================
    EXTEND FILTERS FOR THIS PAGE
 ======================================================= */
@@ -135,46 +132,28 @@ export default function HasilTes() {
 
   const [isFilterOpen, setIsFilterOpen] = React.useState(false)
 
-  const rawData: KenaliDiriHistoryItem[] = data?.data?.data ?? []
-
   /* =======================================================
      FRONTEND FILTERING
   ======================================================= */
 
   const filteredData = React.useMemo(() => {
+    const rawData: KenaliDiriHistoryItem[] = data?.data?.data ?? []
     let result = [...rawData]
 
     /* TAB FILTER */
     if (filters.tab !== 'Semua Data') {
-      result = result.filter((item) => {
-        const mapped = mapStatus(item.status)
-        return mapped === filters.tab
-      })
+      result = result.filter((item) => mapStatus(item.status) === filters.tab)
     }
 
     /* SEARCH FILTER */
-    if (filters.search && filters.search.trim() !== '') {
+    if (filters.search?.trim()) {
       const searchLower = filters.search.toLowerCase()
-      result = result.filter(
-        (item) =>
-          item.user_name.toLowerCase().includes(searchLower) ||
-          item.test_id.toLowerCase().includes(searchLower),
-      )
-    }
-
-    /* DATE FILTER */
-    if (filters.startDate) {
-      result = result.filter(
-        (item) =>
-          new Date(item.started_at).getTime() >= filters.startDate!.getTime(),
-      )
-    }
-
-    if (filters.endDate) {
-      result = result.filter(
-        (item) =>
-          new Date(item.started_at).getTime() <= filters.endDate!.getTime(),
-      )
+      result = result.filter((item) => {
+        // Use String() and optional chaining to prevent crashes if name/id is missing
+        const name = String(item?.user_name ?? '').toLowerCase()
+        const id = String(item?.test_id ?? '').toLowerCase()
+        return name.includes(searchLower) || id.includes(searchLower)
+      })
     }
 
     /* CATEGORY FILTER */
@@ -184,12 +163,10 @@ export default function HasilTes() {
         minat_bakat: 'Minat Bakat',
         kepribadian: 'Kepribadian',
       }
-
       const target = targetMap[filters.category] || filters.category
-
-      // Case-insensitive check
       result = result.filter((item) =>
-        item.category_name.toLowerCase().includes(target.toLowerCase()),
+        // Added optional chaining here
+        item?.category_name?.toLowerCase().includes(target.toLowerCase()),
       )
     }
 
@@ -197,40 +174,52 @@ export default function HasilTes() {
     if (filters.result && filters.result !== 'all') {
       result = result.filter(
         (item) =>
-          item.result_code.toLowerCase() === filters.result?.toLowerCase(),
+          // Added optional chaining and fallback
+          (item?.result_code ?? '').toLowerCase() ===
+          filters.result?.toLowerCase(),
       )
     }
 
     /* SORTING */
     if (filters.sort === 'az') {
       result.sort((a, b) => a.user_name.localeCompare(b.user_name))
-    }
-
-    if (filters.sort === 'za') {
+    } else if (filters.sort === 'za') {
       result.sort((a, b) => b.user_name.localeCompare(a.user_name))
-    }
-
-    if (filters.sort === 'newest') {
+    } else if (filters.sort === 'newest') {
       result.sort(
         (a, b) =>
           new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
       )
     }
 
-    return result
-  }, [rawData, filters])
+    // FINAL MAPPING: Transforming KenaliDiriHistoryItem -> StudentFeedbackItem
+    return result.map((item): StudentFeedbackItem => {
+      // Convert test_id to string first to avoid ".replace is not a function"
+      const testIdStr = String(item.test_id || '')
 
-  /* =======================================================
-     TABLE TRANSFORMATION
-  ======================================================= */
+      // Extract numeric part
+      const numericId = parseInt(testIdStr.replace(/\D/g, ''), 10) || 0
 
-  const tableData: MahasiswaTestTable[] = filteredData.map((item) => ({
-    id: item.test_id,
-    name: item.user_name,
-    category: item.category_name,
-    status: mapStatus(item.status),
-    result: item.result_code || '-',
-  }))
+      return {
+        id: numericId,
+        student: {
+          user_id: '',
+          name: item.user_name,
+          email: '',
+        },
+        scores: {
+          ease: 0,
+          relevance: 0,
+          satisfaction: 0,
+        },
+        obstacles: [],
+        message_to_team: null,
+        submitted_at: item.completed_at || item.started_at,
+        test_category: item.category_name,
+        test_category_label: item.category_name,
+      }
+    })
+  }, [data, filters])
 
   if (isLoading) return <div>Loading...</div>
 
@@ -267,12 +256,12 @@ export default function HasilTes() {
 
         {/* TABLE */}
         <TestTable
-          tableData={DUMMY_TEST_DATA}
-          search={filters.search}
-          status={filters.tab}
-          category={filters.category}
-          result={filters.result}
-          sort={filters.sort}
+          tableData={filteredData}
+          // search={filters.search}
+          // status={filters.tab}
+          // category={filters.category}
+          // result={filters.result}
+          // sort={filters.sort}
         />
       </div>
     </div>

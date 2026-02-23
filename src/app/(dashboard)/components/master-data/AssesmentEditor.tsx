@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { Dispatch, SetStateAction } from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -11,6 +13,7 @@ import {
   Lightbulb,
   Users,
   Home,
+  LucideIcon, // Import the type for Lucide icons
 } from 'lucide-react'
 import Typography from '@/components/Typography'
 import { AssessmentData } from './assesmentTypes'
@@ -23,8 +26,6 @@ const sectionLabels: Record<string, string> = {
   strategi: 'Strategi Pengembangan Diri',
   interaksi: 'Gaya Interaksi & Kolaborasi',
   lingkungan: 'Lingkungan Kerja Yang Ideal',
-
-  // Fallbacks
   strengths: 'Kekuatan Profil',
   challenges: 'Tantangan Profil',
   strategies: 'Strategi Pengembangan Diri',
@@ -32,25 +33,22 @@ const sectionLabels: Record<string, string> = {
   environment: 'Lingkungan Kerja Yang Ideal',
 }
 
-// 2. Configuration for Icons and Colors per section
-const sectionConfig: Record<string, { icon: any; bg: string; text: string }> = {
-  // Green Theme
+// 2. Configuration for Icons and Colors - Typed with LucideIcon
+interface SectionStyle {
+  icon: LucideIcon
+  bg: string
+  text: string
+}
+
+const sectionConfig: Record<string, SectionStyle> = {
   kekuatan: { icon: Zap, bg: 'bg-[#D0EDDB]', text: 'text-[#16A34A]' },
   strengths: { icon: Zap, bg: 'bg-[#D0EDDB]', text: 'text-[#16A34A]' },
-
-  // Orange Theme
   tantangan: { icon: Target, bg: 'bg-[#FFDCC2]', text: 'text-[#EA580C]' },
   challenges: { icon: Target, bg: 'bg-[#FFDCC2]', text: 'text-[#EA580C]' },
-
-  // Blue Theme
   strategi: { icon: Lightbulb, bg: 'bg-[#D1E9FF]', text: 'text-[#2563EB]' },
   strategies: { icon: Lightbulb, bg: 'bg-[#D1E9FF]', text: 'text-[#2563EB]' },
-
-  // Indigo Theme
   interaksi: { icon: Users, bg: 'bg-[#E0E7FF]', text: 'text-[#4F46E5]' },
   collaboration: { icon: Users, bg: 'bg-[#E0E7FF]', text: 'text-[#4F46E5]' },
-
-  // Slate/Grey Theme
   lingkungan: { icon: Home, bg: 'bg-[#F1F5F9]', text: 'text-[#475569]' },
   environment: { icon: Home, bg: 'bg-[#F1F5F9]', text: 'text-[#475569]' },
 }
@@ -60,30 +58,30 @@ export default function AssessmentEditor({
   setData,
 }: {
   data: AssessmentData
-  setData: any
+  setData: Dispatch<SetStateAction<AssessmentData>> // Fixed: Replaced any
 }) {
   const addItem = (section: keyof AssessmentData['sections']) => {
     const newItem = { id: Date.now().toString(), title: '', description: '' }
-    setData({
-      ...data,
+    setData((prev) => ({
+      ...prev,
       sections: {
-        ...data.sections,
-        [section]: [...data.sections[section], newItem],
+        ...prev.sections,
+        [section]: [...prev.sections[section], newItem],
       },
-    })
+    }))
   }
 
   const removeItem = (
     section: keyof AssessmentData['sections'],
     id: string,
   ) => {
-    setData({
-      ...data,
+    setData((prev) => ({
+      ...prev,
       sections: {
-        ...data.sections,
-        [section]: data.sections[section].filter((i) => i.id !== id),
+        ...prev.sections,
+        [section]: prev.sections[section].filter((i) => i.id !== id),
       },
-    })
+    }))
   }
 
   const updateItem = (
@@ -92,15 +90,15 @@ export default function AssessmentEditor({
     field: 'title' | 'description',
     value: string,
   ) => {
-    setData({
-      ...data,
+    setData((prev) => ({
+      ...prev,
       sections: {
-        ...data.sections,
-        [section]: data.sections[section].map((i) =>
+        ...prev.sections,
+        [section]: prev.sections[section].map((i) =>
           i.id === id ? { ...i, [field]: value } : i,
         ),
       },
-    })
+    }))
   }
 
   return (
@@ -119,7 +117,7 @@ export default function AssessmentEditor({
       </div>
 
       {/* Basic Information Section */}
-      <section className="bg-white rounded-xl border-1 border-[#676F7E] overflow-hidden">
+      <section className="bg-white rounded-xl border border-[#676F7E] overflow-hidden">
         <div className="bg-[#669AFF] px-6 py-3">
           <Typography variant="l1" weight="regular" className="text-white">
             Informasi Dasar
@@ -136,10 +134,10 @@ export default function AssessmentEditor({
               <Input
                 value={data.summary.code}
                 onChange={(e) =>
-                  setData({
-                    ...data,
-                    summary: { ...data.summary, code: e.target.value },
-                  })
+                  setData((prev) => ({
+                    ...prev,
+                    summary: { ...prev.summary, code: e.target.value },
+                  }))
                 }
                 className="border-[#6B6F70] text-[#14181F]"
               />
@@ -153,10 +151,10 @@ export default function AssessmentEditor({
               <Input
                 value={data.summary.title}
                 onChange={(e) =>
-                  setData({
-                    ...data,
-                    summary: { ...data.summary, title: e.target.value },
-                  })
+                  setData((prev) => ({
+                    ...prev,
+                    summary: { ...prev.summary, title: e.target.value },
+                  }))
                 }
                 className="border-[#6B6F70] text-[#14181F]"
               />
@@ -171,10 +169,10 @@ export default function AssessmentEditor({
             <Textarea
               value={data.summary.content}
               onChange={(e) =>
-                setData({
-                  ...data,
-                  summary: { ...data.summary, content: e.target.value },
-                })
+                setData((prev) => ({
+                  ...prev,
+                  summary: { ...prev.summary, content: e.target.value },
+                }))
               }
               className="border-[#6B6F70] min-h-[100px] text-[#14181F]"
             />
@@ -186,7 +184,6 @@ export default function AssessmentEditor({
       {(
         Object.keys(data.sections) as Array<keyof AssessmentData['sections']>
       ).map((key) => {
-        // Get config or fallback to Environment/Home style
         const config = sectionConfig[key] || sectionConfig['lingkungan']
         const Icon = config.icon
 
@@ -196,7 +193,6 @@ export default function AssessmentEditor({
             className="bg-white rounded-xl border border-[#676F7E] overflow-hidden"
           >
             <div className="flex flex-row items-center gap-3 border-b border-[#676F7E] px-6 py-3">
-              {/* Dynamic Icon Box */}
               <div
                 className={`w-8 h-8 ${config.bg} rounded-lg flex items-center justify-center`}
               >
@@ -207,7 +203,6 @@ export default function AssessmentEditor({
                 {sectionLabels[key] || key.replace(/([A-Z])/g, ' $1')}
               </Typography>
 
-              {/* Dynamic Counter Box */}
               <div
                 className={`flex w-6 h-6 justify-center items-center ${config.bg} rounded-lg`}
               >

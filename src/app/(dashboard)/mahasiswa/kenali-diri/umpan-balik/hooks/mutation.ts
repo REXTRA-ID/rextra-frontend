@@ -1,19 +1,15 @@
 import {
-  ExpertFeedbackResponse,
-  GetExpertFeedbackParams,
   GetStudentFeedbackParams,
   StudentFeedbackResponse,
 } from '@/types/kenali-diri'
-import axios from 'axios'
+import axios from 'axios' // Import AxiosError
 import { cookies } from 'next/headers'
 
 /**
  * Reads the access token from cookies.
- * Matches the key used in your universal-cookie utility: '@rextra/access_token'
  */
 async function getAuthToken(): Promise<string | undefined> {
   const cookieStore = await cookies()
-  // This must match exactly what setAccessToken uses
   const token = cookieStore.get('@rextra/access_token')?.value
   return token
 }
@@ -32,9 +28,8 @@ export async function getStudentFeedbacks(
 
   const token = await getAuthToken()
 
-  // 1. Check if token exists before making the request
   if (!token) {
-    console.error('[getExpertFeedbacks] No access token found.')
+    console.error('[getStudentFeedbacks] No access token found.')
     throw new Error('Unauthorized: No session found.')
   }
 
@@ -49,18 +44,26 @@ export async function getStudentFeedbacks(
           ...(test_category && { test_category }),
         },
         headers: {
-          // 2. Ensure the Bearer prefix is used
           Authorization: `Bearer ${token}`,
         },
       },
     )
 
     return response.data
-  } catch (error: any) {
-    // 3. Better error handling for debugging
-    if (error.response?.status === 401) {
-      console.error('[getExpertFeedbacks] Token expired or invalid')
+  } catch (error: unknown) {
+    // Change any to unknown
+    // Use axios.isAxiosError for type narrowing
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        console.error('[getStudentFeedbacks] Token expired or invalid')
+      }
+    } else {
+      console.error(
+        '[getStudentFeedbacks] An unexpected error occurred:',
+        error,
+      )
     }
+
     throw error
   }
 }

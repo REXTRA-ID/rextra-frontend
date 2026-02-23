@@ -63,9 +63,10 @@ export default function FilterTabs({
                   whitespace-nowrap
                   rounded-lg
                   shadow-none
-                  ${isActive
-                    ? 'bg-[#CCDDFF] text-white border-1 border-[#669AFF]'
-                    : 'bg-transparent text-[#669AFF] hover:bg-[#CCDDFF] hover:border hover:border-[#669AFF]'
+                  ${
+                    isActive
+                      ? 'bg-[#CCDDFF] text-white border-1 border-[#669AFF]'
+                      : 'bg-transparent text-[#669AFF] hover:bg-[#CCDDFF] hover:border hover:border-[#669AFF]'
                   }
                 `}
               >

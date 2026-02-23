@@ -92,7 +92,7 @@ const RIASEC_LABEL_MAP: Record<RIASECValue, string> = {
   C: 'Conventional',
 }
 
-const MasterDataCard = ({ children, id, onClick }: MasterDataCardProps) => {
+const MasterDataCard = ({ children, id }: MasterDataCardProps) => {
   const bubbles = React.Children.toArray(children).filter(isRIASECTypeBubble)
 
   const riasecText = bubbles

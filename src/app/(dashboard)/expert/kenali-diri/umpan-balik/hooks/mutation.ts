@@ -11,7 +11,6 @@ import { cookies } from 'next/headers'
  */
 async function getAuthToken(): Promise<string | undefined> {
   const cookieStore = await cookies()
-  // This must match exactly what setAccessToken uses
   const token = cookieStore.get('@rextra/access_token')?.value
   return token
 }
@@ -30,7 +29,6 @@ export async function getExpertFeedbacks(
 
   const token = await getAuthToken()
 
-  // 1. Check if token exists before making the request
   if (!token) {
     console.error('[getExpertFeedbacks] No access token found.')
     throw new Error('Unauthorized: No session found.')
@@ -47,18 +45,24 @@ export async function getExpertFeedbacks(
           ...(test_category && { test_category }),
         },
         headers: {
-          // 2. Ensure the Bearer prefix is used
           Authorization: `Bearer ${token}`,
         },
       },
     )
 
     return response.data
-  } catch (error: any) {
-    // 3. Better error handling for debugging
-    if (error.response?.status === 401) {
-      console.error('[getExpertFeedbacks] Token expired or invalid')
+  } catch (error: unknown) {
+    // 1. Changed from any to unknown
+    // 2. Use axios.isAxiosError for type narrowing
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        console.error('[getExpertFeedbacks] Token expired or invalid')
+      }
+    } else {
+      // Handle non-axios errors (e.g., runtime crashes)
+      console.error('[getExpertFeedbacks] An unexpected error occurred:', error)
     }
+
     throw error
   }
 }
