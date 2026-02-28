@@ -185,15 +185,6 @@ function SidebarContent({
       <div className="flex-1 overflow-y-auto scrollbar-hide px-4 pb-10">
         {menuData.map((section, idx) => (
           <div key={idx} className="mb-6">
-            <h3
-              className={cn(
-                'text-gray-400 text-sm mb-4 transition-all duration-300',
-                isOpen || isMobile ? 'text-left px-4' : 'text-center text-xs',
-              )}
-            >
-              {section.category}
-            </h3>
-
             <div className="gap-1">
               {section.items.map((item) => {
                 const hasChildren = item.children && item.children.length > 0
