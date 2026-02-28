@@ -47,8 +47,10 @@ export const useLoginMutation = () => {
       setTimeout(() => {
         if (res.data.role === 'ADMIN') {
           router.replace('/admin')
+        } else if (res.data.role === 'EXPERT') {
+          router.replace('/expert/kenali-diri/hasil-tes')
         } else {
-          router.replace('/dashboard')
+          router.replace('/mahasiswa/kenali-diri/hasil-tes')
         }
       }, 1000)
     },
