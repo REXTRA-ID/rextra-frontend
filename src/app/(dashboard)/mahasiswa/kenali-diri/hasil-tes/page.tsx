@@ -1,13 +1,14 @@
 'use client'
 
 import React from 'react'
-import TestTable, { TestStatus } from '@/app/(dashboard)/components/TestTable'
+import { TestStatus } from '@/app/(dashboard)/components/TestTable'
 import FilterTabs from '@/app/(dashboard)/components/FilterTabs'
 import DetailedSearchInfo, {
   Filters,
 } from '@/app/(dashboard)/components/DetailedSearchInfo'
 import { useKenaliDiriHistory } from './hooks/mutation'
-import { KenaliDiriHistoryItem, StudentFeedbackItem } from '@/types/kenali-diri'
+import { KenaliDiriHistoryItem } from '@/types/kenali-diri'
+import MahasiswaHasilTestTable from '@/app/(dashboard)/components/MahasiswaHasilTestTable'
 // export const DUMMY_TEST_DATA: MahasiswaTestTable[] = [
 //   {
 //     id: '#KD-001',
@@ -193,32 +194,18 @@ export default function HasilTes() {
     }
 
     // FINAL MAPPING: Transforming KenaliDiriHistoryItem -> StudentFeedbackItem
-    return result.map((item): StudentFeedbackItem => {
-      // Convert test_id to string first to avoid ".replace is not a function"
-      const testIdStr = String(item.test_id || '')
-
-      // Extract numeric part
-      const numericId = parseInt(testIdStr.replace(/\D/g, ''), 10) || 0
-
-      return {
-        id: numericId,
-        student: {
-          user_id: '',
-          name: item.user_name,
-          email: '',
-        },
-        scores: {
-          ease: 0,
-          relevance: 0,
-          satisfaction: 0,
-        },
-        obstacles: [],
-        message_to_team: null,
-        submitted_at: item.completed_at || item.started_at,
-        test_category: item.category_name,
-        test_category_label: item.category_name,
-      }
-    })
+    return result.map(
+      (item): KenaliDiriHistoryItem => ({
+        test_id: item.test_id,
+        user_name: item.user_name,
+        category_name: item.category_name,
+        status: item.status,
+        result_code: item.result_code,
+        started_at: item.started_at,
+        completed_at: item.completed_at,
+        riasec_code_type: item.riasec_code_type,
+      }),
+    )
   }, [data, filters])
 
   if (isLoading) return <div>Loading...</div>
@@ -255,7 +242,7 @@ export default function HasilTes() {
         )}
 
         {/* TABLE */}
-        <TestTable
+        <MahasiswaHasilTestTable
           tableData={filteredData}
           // search={filters.search}
           // status={filters.tab}

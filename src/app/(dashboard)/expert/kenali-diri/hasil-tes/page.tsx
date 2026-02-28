@@ -7,8 +7,8 @@ import DetailedSearchInfo, {
   Filters,
 } from '@/app/(dashboard)/components/DetailedSearchInfo'
 import { useKenaliDiriHistory } from './hooks/mutation'
-import { ExpertFeedbackItem, KenaliDiriHistoryItem } from '@/types/kenali-diri'
-import TestExpertDataTable from '@/app/(dashboard)/components/TestExpertTable'
+import { KenaliDiriHistoryItem } from '@/types/kenali-diri'
+import ExpertHasilTestTable from '@/app/(dashboard)/components/ExpertHasilTestTable'
 // export const DUMMY_TEST_DATA: MahasiswaTestTable[] = [
 //   {
 //     id: '#KD-001',
@@ -194,33 +194,34 @@ export default function HasilTes() {
       )
     }
 
-    /* FINAL MAPPING: KenaliDiriHistoryItem -> ExpertFeedbackItem */
-    return result.map((item): ExpertFeedbackItem => {
-      // Safe numeric conversion for ID
-      const testIdStr = String(item?.test_id ?? '')
-      const numericId = parseInt(testIdStr.replace(/\D/g, ''), 10) || 0
+    // /* FINAL MAPPING: KenaliDiriHistoryItem -> ExpertFeedbackItem */
+    // return result.map((item): ExpertFeedbackItem => {
+    //   // Safe numeric conversion for ID
+    //   const testIdStr = String(item?.test_id ?? '')
+    //   const numericId = parseInt(testIdStr.replace(/\D/g, ''), 10) || 0
 
-      return {
-        id: numericId,
-        expert: {
-          name: item?.user_name ?? 'Unknown',
-          profession: 'Student', // Fallback value
-          profession_id: 0,
-        },
-        top5_status: item?.status ?? '',
-        top5_status_label: mapStatus(item?.status),
-        scores: {
-          accuracy: 0, // Fallback since history doesn't have feedback scores
-          logic: 0,
-          usefulness: 0,
-        },
-        obstacles: [],
-        has_suggestion: false,
-        submitted_at: item?.completed_at || item?.started_at || '',
-        test_category: item?.category_name ?? '',
-        test_category_label: item?.category_name ?? '',
-      }
-    })
+    //   return {
+    //     id: numericId,
+    //     expert: {
+    //       name: item?.user_name ?? 'Unknown',
+    //       profession: 'Student', // Fallback value
+    //       profession_id: 0,
+    //     },
+    //     top5_status: item?.status ?? '',
+    //     top5_status_label: mapStatus(item?.status),
+    //     scores: {
+    //       accuracy: 0, // Fallback since history doesn't have feedback scores
+    //       logic: 0,
+    //       usefulness: 0,
+    //     },
+    //     obstacles: [],
+    //     has_suggestion: false,
+    //     submitted_at: item?.completed_at || item?.started_at || '',
+    //     test_category: item?.category_name ?? '',
+    //     test_category_label: item?.category_name ?? '',
+    //   }
+    // })
+    return result
   }, [data, filters])
 
   if (isLoading) return <div>Loading...</div>
@@ -251,7 +252,7 @@ export default function HasilTes() {
           />
         )}
 
-        <TestExpertDataTable tableData={filteredData} />
+        <ExpertHasilTestTable tableData={filteredData} />
       </div>
     </div>
   )
