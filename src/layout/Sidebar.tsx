@@ -53,9 +53,9 @@ const menuData = [
         icon: Heart,
         href: '#',
         children: [
-          { label: 'Master Data', href: '/dashboard/kenali-diri/master-data' },
-          { label: 'Hasil Tes', href: '/dashboard/kenali-diri/hasil-tes' },
-          { label: 'Umpan Balik', href: '/dashboard/kenali-diri/umpan-balik' },
+          { label: 'Master Data', href: '/expert/kenali-diri/master-data' },
+          { label: 'Hasil Tes', href: '/expert/kenali-diri/hasil-tes' },
+          { label: 'Umpan Balik', href: '/expert/kenali-diri/umpan-balik' },
         ],
       },
     ],
