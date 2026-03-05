@@ -31,14 +31,7 @@ const ProfilKodeRIASECTab = ({
       {/* FILTER HEADER */}
       <div
         className="
-          flex gap-2
-          w-fit
-          bg-[#D3D4D4]/15
-          outline outline-1 outline-[#B5B7B8]
-          rounded-lg
-          py-2
-          px-5
-        "
+          flex gap-2 w-full overflow-x-auto flex-nowrap scrollbar-hidebg-[#D3D4D4]/15 outline outline-1 outline-[#B5B7B8] rounded-lg py-2 px-5"
       >
         {/* Semua */}
         <FilterItem
@@ -107,7 +100,11 @@ const FilterItem = ({
     >
       <Typography
         variant="l2"
-        className={active ? 'text-[#003499] font-bold' : 'text-[#003499]'}
+        className={
+          active
+            ? 'text-[#003499] font-bold whitespace-nowrap'
+            : 'text-[#003499] inline-flex whitespace-nowrap'
+        }
       >
         {label}
       </Typography>
