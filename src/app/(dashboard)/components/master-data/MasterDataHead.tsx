@@ -11,13 +11,22 @@ type Props = {
 
 const MasterDataHead = ({ search, onSearchChange }: Props) => {
   return (
-    <div className="flex flex-row gap-4 w-full">
+    <div className="flex flex-col md:flex-row gap-4 md:gap-8 w-full">
       {/* TITLE */}
-      <div className="flex flex-col gap-1 w-3/4">
-        <Typography variant="h5" weight="bold" font="Poppins">
+      <div className="flex md:flex-col gap-4 md:gap-1 md:w-3/4 w-full">
+        <Typography
+          variant="h5"
+          weight="bold"
+          font="Poppins"
+          className="text-justify"
+        >
           Master Data Profil Kode RIASEC
         </Typography>
-        <Typography variant="l1" className="text-gray-500" font="Poppins">
+        <Typography
+          variant="l1"
+          className="text-gray-500 text-justify"
+          font="Poppins"
+        >
           Menyajikan 156 profil kode RIASEC yang terdiri dari kombinasi 1 hingga
           3 huruf.
         </Typography>

@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import DataTabsMasterData from '@/app/(dashboard)/components/master-data/DataTabsMasterData'
 import MasterDataHead from '@/app/(dashboard)/components/master-data/MasterDataHead'
 import { RIASECType } from '@/app/(dashboard)/components/master-data/RIASECTypeBubble'
+import { useRiasecCodesQuery } from './hooks/riasec'
 
 export type RIASECItem = {
   id: number
@@ -11,19 +12,32 @@ export type RIASECItem = {
 }
 
 export default function MasterData() {
-  const [data] = useState<RIASECItem[]>([
-    { id: 1, types: ['R'] },
-    { id: 2, types: ['R', 'I'] },
-    { id: 3, types: ['R', 'I', 'S'] },
-    { id: 4, types: ['S'] },
-    { id: 5, types: ['E', 'C'] },
-    { id: 6, types: ['R', 'I', 'S'] },
-  ])
-
   const [filter, setFilter] = useState<'all' | 1 | 2 | 3>('all')
   const [search, setSearch] = useState('')
 
-  // 🔹 Counts (always based on full data)
+  const codeTypeMap = {
+    all: '',
+    1: 'single',
+    2: 'double',
+    3: 'triple',
+  }
+
+  const { data: res, isLoading } = useRiasecCodesQuery({
+    code_type: codeTypeMap[filter],
+    search,
+  })
+
+  // 🔹 Transform API → UI
+  const data: RIASECItem[] = useMemo(() => {
+    if (!res?.data?.data) return []
+
+    return res.data.data.map((item) => ({
+      id: item.id,
+      types: item.code.split('') as RIASECType[],
+    }))
+  }, [res])
+
+  // 🔹 Counts (optional jika API tidak kirim counts)
   const counts = useMemo(() => {
     const one = data.filter((d) => d.types.length === 1).length
     const two = data.filter((d) => d.types.length === 2).length
@@ -37,24 +51,7 @@ export default function MasterData() {
     }
   }, [data])
 
-  // 🔹 Filter + Search Combined
-  const filteredData = useMemo(() => {
-    let result = data
-
-    // Filter by length
-    if (filter !== 'all') {
-      result = result.filter((d) => d.types.length === filter)
-    }
-
-    // Search by RIASEC combination
-    if (search.trim() !== '') {
-      const keyword = search.toUpperCase()
-
-      result = result.filter((d) => d.types.join('').includes(keyword))
-    }
-
-    return result
-  }, [data, filter, search])
+  if (isLoading) return <div>Loading...</div>
 
   return (
     <div className="flex min-h-screen bg-white p-6">
@@ -62,7 +59,7 @@ export default function MasterData() {
         <MasterDataHead search={search} onSearchChange={setSearch} />
 
         <DataTabsMasterData
-          data={filteredData}
+          data={data}
           counts={counts}
           activeFilter={filter}
           onFilterChange={setFilter}
