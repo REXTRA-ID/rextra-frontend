@@ -18,12 +18,11 @@ export const useRiasecCodesQuery = (params: Params) => {
     queryFn: async () => {
       const res = await api.get<ApiResponse<RiasecResponse>>(
         '/api/v1/admin/kenali-diri/riasec-codes',
-        {
-          params,
-        },
+        { params },
       )
 
       return res.data
     },
+    placeholderData: (previousData) => previousData,
   })
 }

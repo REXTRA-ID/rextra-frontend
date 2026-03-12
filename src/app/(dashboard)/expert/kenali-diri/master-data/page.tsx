@@ -51,7 +51,7 @@ export default function MasterData() {
     }
   }, [data])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading && !res) return <div>Loading...</div>
 
   return (
     <div className="flex min-h-screen bg-white p-6">
