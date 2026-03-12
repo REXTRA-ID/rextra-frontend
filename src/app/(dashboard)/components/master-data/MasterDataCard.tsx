@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Typography from '@/components/Typography'
+import { useRouter } from 'next/navigation'
 
 /* =======================
    RIASEC CONSTANTS
@@ -93,6 +94,8 @@ const RIASEC_LABEL_MAP: Record<RIASECValue, string> = {
 }
 
 const MasterDataCard = ({ children, id }: MasterDataCardProps) => {
+  const router = useRouter()
+
   const bubbles = React.Children.toArray(children).filter(isRIASECTypeBubble)
 
   const riasecText = bubbles
@@ -125,7 +128,7 @@ const MasterDataCard = ({ children, id }: MasterDataCardProps) => {
 
         <div
           className="rounded-xl bg-[#2662D9] py-1 px-3 hover:cursor-pointer"
-          onClick={() => onclick}
+          onClick={() => router.push(`/expert/kenali-diri/master-data/${id}`)}
         >
           <Typography variant="l2" className="text-white">
             Lihat Detail
