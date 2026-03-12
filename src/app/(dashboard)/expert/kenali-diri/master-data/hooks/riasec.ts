@@ -12,6 +12,18 @@ type Params = {
   search?: string
 }
 
+export type RiasecDetail = {
+  id: number
+  code: string
+  title: string
+  description: string
+  strengths: string[]
+  challenges: string[]
+  strategies: string[]
+  work_environments: string[]
+  interaction_styles: string[]
+}
+
 export const useRiasecCodesQuery = (params: Params) => {
   return useQuery<ApiResponse<RiasecResponse>, AxiosError>({
     queryKey: ['riasec-codes', params.code_type, params.search],
@@ -24,5 +36,18 @@ export const useRiasecCodesQuery = (params: Params) => {
       return res.data
     },
     placeholderData: (previousData) => previousData,
+  })
+}
+
+export const useRiasecDetailQuery = (id: string) => {
+  return useQuery<ApiResponse<RiasecDetail>, AxiosError>({
+    queryKey: ['riasec-detail', id],
+    queryFn: async () => {
+      const res = await api.get<ApiResponse<RiasecDetail>>(
+        `/api/v1/admin/kenali-diri/riasec-codes/${id}`,
+      )
+
+      return res.data
+    },
   })
 }
